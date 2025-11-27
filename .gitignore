@@ -1,2 +1,14 @@
 node_modules
 package
+
+# Test coverage reports
+coverage/
+.nyc_output/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Jest
+*.test.js.snap
