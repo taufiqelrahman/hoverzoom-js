@@ -9,7 +9,7 @@ export default {
     "!src/**/*.test.js",
     "!**/node_modules/**",
   ],
-  coverageThresholds: {
+  coverageThreshold: {
     global: {
       branches: 80,
       functions: 80,
@@ -19,5 +19,6 @@ export default {
   },
   coverageReporters: ["text", "lcov", "html"],
   testMatch: ["**/__tests__/**/*.js", "**/?(*.)+(spec|test).js"],
+  testPathIgnorePatterns: ["/node_modules/", "/e2e/"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
 };
