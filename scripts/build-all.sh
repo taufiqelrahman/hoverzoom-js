@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Build all script - Complete build process
+# Runs all steps needed to prepare the project
+
+set -e
+
+echo "🔨 Building hoverzoom-js..."
+echo ""
+
+# Clean
+echo "Cleaning dist directory..."
+rm -rf dist
+mkdir -p dist
+
+# Lint
+echo "Running linter..."
+npm run lint
+
+# Compile SCSS
+echo "Compiling SCSS..."
+npm run scss
+
+# Bundle with Rollup
+echo "Bundling with Rollup..."
+npx rollup -c
+
+# Copy types
+echo "Copying type definitions..."
+cp src/HoverZoom.d.ts dist/hoverzoom.d.ts
+
+# Minify
+echo "Minifying assets..."
+npm run minify
+
+# Update demo
+echo "Updating demo files..."
+npm run demo
+
+echo ""
+echo "✨ Build completed successfully!"
+echo ""
+echo "Generated files:"
+ls -lh dist/

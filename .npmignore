@@ -1,0 +1,50 @@
+# Development files
+src/
+__mocks__/
+e2e/
+test-results/
+playwright-report/
+coverage/
+
+# Config files
+.eslintrc.js
+jest.config.js
+jest.setup.js
+playwright.config.js
+rollup.config.js
+vercel.json
+.nvmrc
+
+# Test files
+**/*.test.js
+**/*.spec.js
+*.test.js
+*.spec.js
+
+# Documentation (keep README)
+TESTING.md
+todo.md
+
+# Demo and examples
+demo/
+Dockerfile
+
+# Git files
+.git/
+.github/
+.gitignore
+
+# IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
