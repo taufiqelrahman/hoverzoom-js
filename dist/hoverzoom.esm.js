@@ -23,7 +23,11 @@ class HoverZoom {
       blur: false,
       grayscale: false,
     };
-    this.options = { ...defaults, ...options };
+    this.options = {
+      ...defaults,
+      ...options,
+      classNames: { ...defaults.classNames, ...(options.classNames || {}) },
+    };
     this.isSafari =
       /constructor/i.test(window.HTMLElement) ||
       ((p) => p.toString() === '[object SafariRemoteNotification]')(
