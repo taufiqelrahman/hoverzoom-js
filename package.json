@@ -1,7 +1,7 @@
 {
   "name": "hoverzoom-js",
-  "version": "1.7.0",
-  "description": "A lightweight hover-to-zoom image magnifier plugin for web",
+  "version": "1.8.0",
+  "description": "A lightweight, high-performance hover-to-zoom image magnifier plugin with zero dependencies",
   "main": "dist/hoverzoom.esm.min.js",
   "module": "dist/hoverzoom.esm.min.js",
   "types": "dist/hoverzoom.d.ts",
@@ -29,6 +29,8 @@
     "build:all": "bash scripts/build-all.sh",
     "minify": "cleancss -o dist/hoverzoom.min.css dist/hoverzoom.css && terser dist/hoverzoom.umd.js -o dist/hoverzoom.umd.min.js --compress --mangle && terser dist/hoverzoom.esm.js -o dist/hoverzoom.esm.min.js --compress --mangle",
     "demo": "cp dist/hoverzoom.umd.min.js demo/hoverzoom.umd.min.js && cp dist/hoverzoom.min.css demo/hoverzoom.min.css",
+    "demo:dev": "npm run build && npm run demo && npx http-server demo -p 8080 -o",
+    "dev": "npm run demo:dev",
     "clean": "rm -rf dist coverage test-results playwright-report",
     "prepublishOnly": "bash scripts/prepublish.sh",
     "verify": "bash scripts/verify-package.sh",

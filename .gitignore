@@ -12,3 +12,5 @@ playwright/.cache/
 
 # Jest
 *.test.js.snap
+
+todo.md

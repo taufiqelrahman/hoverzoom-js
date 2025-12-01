@@ -1,3 +1,41 @@
+## [1.8.0] - 2025-12-01
+
+### Added
+
+- Performance optimizations with throttle for mousemove events (configurable via `throttleDelay` option, default 16ms/60fps)
+- RequestAnimationFrame for smooth animations with GPU acceleration (translate3d)
+- DOM caching system using Map for reduced DOM queries
+- Image preloading with lazy loading support
+- `destroy()` method for proper cleanup and memory management
+- Comprehensive test suite with Jest (29 unit tests, 95%+ coverage)
+- End-to-end testing with Playwright across Chromium, Firefox, and WebKit
+- Complete deployment automation scripts (lint → test → build → publish)
+- TypeScript declaration file (.d.ts) for better IDE support
+- Testing documentation (TESTING.md)
+- Deployment documentation (DEPLOYMENT.md)
+
+### Changed
+
+- Refactored to immutable patterns (const over let)
+- Cached image dimensions to avoid repeated reflows
+- Combined background-position-x and background-position-y into single property
+- Pre-calculated constants for better performance (multipliers, transforms)
+- Enhanced error handling with console warnings for failed image loads
+
+### Fixed
+
+- Deep merge bug for nested classNames options
+- Async test timing issues with requestAnimationFrame
+- Jest configuration typo (coverageThreshold)
+- E2E test timing and opacity checks with proper tolerances
+
+### Performance
+
+- ~60fps smooth animation with throttled mousemove handler
+- Reduced DOM reflows by caching dimensions and references
+- GPU-accelerated transforms for better rendering performance
+- Lazy image loading to reduce initial load time
+
 ## [1.7.0] - 2025-08-19
 
 ### Changed

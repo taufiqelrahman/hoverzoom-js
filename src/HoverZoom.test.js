@@ -225,8 +225,8 @@ describe('HoverZoom', () => {
       expect(() => image.dispatchEvent(event)).not.toThrow();
     });
 
-    test('should apply opacity on mousemove', () => {
-      const hoverZoom = new HoverZoom({ type: 'outside' });
+    test('should apply opacity on mousemove', (done) => {
+      const hoverZoom = new HoverZoom({ type: 'outside', throttleDelay: 0 });
       hoverZoom.init();
 
       const image = document.querySelector('.hoverzoom-image');
@@ -241,11 +241,18 @@ describe('HoverZoom', () => {
 
       image.dispatchEvent(event);
 
-      expect(magnifier.style.opacity).toBe('1');
+      requestAnimationFrame(() => {
+        expect(magnifier.style.opacity).toBe('1');
+        done();
+      });
     });
 
-    test('should apply blur filter when blur option is true', () => {
-      const hoverZoom = new HoverZoom({ type: 'outside', blur: true });
+    test('should apply blur filter when blur option is true', (done) => {
+      const hoverZoom = new HoverZoom({
+        type: 'outside',
+        blur: true,
+        throttleDelay: 0,
+      });
       hoverZoom.init();
 
       const image = document.querySelector('.hoverzoom-image');
@@ -258,11 +265,18 @@ describe('HoverZoom', () => {
 
       image.dispatchEvent(event);
 
-      expect(image.style.filter).toContain('blur');
+      requestAnimationFrame(() => {
+        expect(image.style.filter).toContain('blur');
+        done();
+      });
     });
 
-    test('should apply grayscale filter when grayscale option is true', () => {
-      const hoverZoom = new HoverZoom({ type: 'outside', grayscale: true });
+    test('should apply grayscale filter when grayscale option is true', (done) => {
+      const hoverZoom = new HoverZoom({
+        type: 'outside',
+        grayscale: true,
+        throttleDelay: 0,
+      });
       hoverZoom.init();
 
       const image = document.querySelector('.hoverzoom-image');
@@ -275,7 +289,10 @@ describe('HoverZoom', () => {
 
       image.dispatchEvent(event);
 
-      expect(image.style.filter).toContain('grayscale');
+      requestAnimationFrame(() => {
+        expect(image.style.filter).toContain('grayscale');
+        done();
+      });
     });
 
     test('should handle mouseout event', () => {
@@ -296,11 +313,15 @@ describe('HoverZoom', () => {
       expect(image.style.filter).toBe('unset');
     });
 
-    test('should respect data-blur attribute over options', () => {
+    test('should respect data-blur attribute over options', (done) => {
       const img = document.querySelector('.hoverzoom-image');
       img.dataset.blur = 'true';
 
-      const hoverZoom = new HoverZoom({ type: 'outside', blur: false });
+      const hoverZoom = new HoverZoom({
+        type: 'outside',
+        blur: false,
+        throttleDelay: 0,
+      });
       hoverZoom.init();
 
       const image = document.querySelector('.hoverzoom-image');
@@ -313,14 +334,21 @@ describe('HoverZoom', () => {
 
       image.dispatchEvent(event);
 
-      expect(image.style.filter).toContain('blur');
+      requestAnimationFrame(() => {
+        expect(image.style.filter).toContain('blur');
+        done();
+      });
     });
 
-    test('should respect data-grayscale attribute over options', () => {
+    test('should respect data-grayscale attribute over options', (done) => {
       const img = document.querySelector('.hoverzoom-image');
       img.dataset.grayscale = 'true';
 
-      const hoverZoom = new HoverZoom({ type: 'outside', grayscale: false });
+      const hoverZoom = new HoverZoom({
+        type: 'outside',
+        grayscale: false,
+        throttleDelay: 0,
+      });
       hoverZoom.init();
 
       const image = document.querySelector('.hoverzoom-image');
@@ -333,7 +361,10 @@ describe('HoverZoom', () => {
 
       image.dispatchEvent(event);
 
-      expect(image.style.filter).toContain('grayscale');
+      requestAnimationFrame(() => {
+        expect(image.style.filter).toContain('grayscale');
+        done();
+      });
     });
   });
 

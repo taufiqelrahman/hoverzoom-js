@@ -16,11 +16,17 @@ No dependencies, no jQuery, fully optimized for minimal download size and fast p
 
 ## Features
 
-- Lightweight, no additional javascript dependency. (5.4kB minified)
-- No additional JavaScript dependency.
-- Easy to install and use anywhere.
-- Zoomed image can appear **inside** or **outside** the lens.
-- Optional filters for the original image: blur, grayscale.
+- 🚀 **Lightweight** – Only 6.7kB minified (ESM) / 6.9kB (UMD)
+- ⚡ **High Performance** – Throttled mousemove (60fps), requestAnimationFrame, GPU acceleration
+- 📦 **Zero Dependencies** – Pure vanilla JavaScript, no jQuery or other libraries
+- 🎯 **Easy Integration** – Works with CDN, npm, or any module bundler
+- 🔍 **Flexible Zoom Modes** – Inside or outside lens positioning
+- 🎨 **Visual Effects** – Optional blur and grayscale filters
+- 💾 **Smart Caching** – DOM element and image caching for optimal performance
+- 🖼️ **Lazy Loading** – Preloads large images only when needed
+- 🧹 **Memory Safe** – Proper cleanup with `destroy()` method
+- ✅ **Well Tested** – 95%+ unit test coverage, cross-browser e2e tests
+- 📘 **TypeScript Support** – Full type definitions included
 
 ---
 
@@ -78,8 +84,12 @@ Initialize with default or custom options:
     type: "outside", // 'outside' | 'inside'
     blur: true, // apply blur filter
     grayscale: true, // apply grayscale filter
+    throttleDelay: 16, // throttle delay in ms (default: 16ms/60fps)
   });
   hoverZoom.init();
+  
+  // Cleanup when done (optional)
+  // hoverZoom.destroy();
 </script>
 ```
 
@@ -113,6 +123,9 @@ const hoverZoom = new HoverZoom({
 // Initialize all elements with 'hoverzoom' class
 hoverZoom.init();
 
+// Cleanup when component unmounts or not needed
+// hoverZoom.destroy();
+
 // CommonJS
 const HoverZoom = require("hoverzoom-js");
 require("hoverzoom-js/style.css");
@@ -125,12 +138,14 @@ hoverZoom.init();
 
 ## Options
 
-| Option    | Type    | Default   | Description                                    |
-| --------- | ------- | --------- | ---------------------------------------------- |
-| position  | string  | "right"   | Position of the zoomed image (right or bottom) |
-| type      | string  | "outside" | Magnifier type (inside or outside)             |
-| blur      | boolean | false     | Apply blur filter to the original image        |
-| grayscale | boolean | false     | Apply grayscale filter to the original image   |
+| Option        | Type    | Default   | Description                                           |
+| ------------- | ------- | --------- | ----------------------------------------------------- |
+| position      | string  | "right"   | Position of the zoomed image (right or bottom)        |
+| type          | string  | "outside" | Magnifier type (inside or outside)                    |
+| blur          | boolean | false     | Apply blur filter to the original image               |
+| grayscale     | boolean | false     | Apply grayscale filter to the original image          |
+| throttleDelay | number  | 16        | Mousemove throttle delay in ms (16ms = ~60fps)        |
+| classNames    | object  | {...}     | Custom CSS class names for container, image, elements |
 
 ---
 
@@ -181,6 +196,49 @@ git push origin feature/amazing-feature
 
 ⸻
 
+## 📊 Performance
+
+HoverZoom is optimized for maximum performance:
+
+- **Throttled Events**: Mousemove events throttled to 60fps by default (configurable)
+- **GPU Acceleration**: Uses `translate3d` for hardware-accelerated transforms
+- **Smart Caching**: DOM elements and images cached to minimize queries
+- **Lazy Loading**: Large images preloaded only when needed
+- **Minimal Reflows**: Dimensions cached to avoid repeated layout calculations
+- **RequestAnimationFrame**: Smooth animations synced with browser repaint cycle
+
+## 🧪 Testing
+
+```bash
+# Unit tests (Jest)
+npm test
+npm run test:coverage  # With coverage report
+
+# E2E tests (Playwright)
+npm run test:e2e
+npm run test:e2e:ui    # With UI mode
+
+# All tests
+npm run test:all
+```
+
+See [TESTING.md](./TESTING.md) for detailed testing documentation.
+
+## 📦 Deployment
+
+```bash
+# Build for production
+npm run build:all
+
+# Verify package contents
+npm run verify
+
+# Deploy to npm (automated)
+npm run deploy
+```
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment guide.
+
 ## 📄 License
 
 MIT License
@@ -191,4 +249,4 @@ Submit via [GitHub Issues](https://github.com/taufiqelrahman/hoverzoom-js/issues
 
 ⸻
 
-Made with ❤️ for building a lightweight plugin to zoom images on hover.
+Made with ❤️ for building a lightweight, high-performance image zoom plugin.
