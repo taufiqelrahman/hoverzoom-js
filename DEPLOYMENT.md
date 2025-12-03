@@ -14,8 +14,8 @@ Complete guide for deploying hoverzoom-js to npm.
 Run the complete deployment script:
 
 ```bash
-npm run verify          # Verify package first
-npm run deploy          # Interactive deployment
+pnpm run verify          # Verify package first
+pnpm run deploy          # Interactive deployment
 ```
 
 This will:
@@ -56,38 +56,38 @@ git pull origin master
 
 ```bash
 # Run unit tests
-npm test
+pnpm test
 
 # Run with coverage
-npm run test:coverage
+pnpm run test:coverage
 
 # Run e2e tests
-npm run test:e2e
+pnpm run test:e2e
 ```
 
 ### 3. Build & Minify
 
 ```bash
 # Clean previous build
-npm run clean
+pnpm run clean
 
 # Build everything
-npm run build:all
+pnpm run build:all
 
 # Or step by step:
-npm run build
-npm run minify
-npm run demo
+pnpm run build
+pnpm run minify
+pnpm run demo
 ```
 
 ### 4. Verify Package
 
 ```bash
 # Verify what will be published
-npm run verify
+pnpm run verify
 
 # Dry run to see package contents
-npm pack --dry-run
+pnpm pack --dry-run
 ```
 
 ### 5. Update Version
@@ -96,13 +96,13 @@ Choose appropriate version bump:
 
 ```bash
 # For bug fixes (1.7.0 -> 1.7.1)
-npm run version:patch
+pnpm run version:patch
 
 # For new features (1.7.0 -> 1.8.0)
-npm run version:minor
+pnpm run version:minor
 
 # For breaking changes (1.7.0 -> 2.0.0)
-npm run version:major
+pnpm run version:major
 ```
 
 ### 6. Update Changelog
@@ -129,11 +129,11 @@ Edit `CHANGELOG.md` and add entry for new version:
 
 ```bash
 # Publish (will run prepublishOnly automatically)
-npm publish
+pnpm publish
 
 # For first time or if 2FA is enabled
-npm login
-npm publish
+pnpm login
+pnpm publish
 ```
 
 ### 8. Push to Git
@@ -191,7 +191,7 @@ See `.npmignore` for complete list. Excluded:
 ### "You need to be logged in to publish"
 
 ```bash
-npm login
+pnpm login
 ```
 
 ### "You do not have permission to publish"
@@ -203,15 +203,15 @@ Check package name availability or your npm account permissions.
 You forgot to bump version. Run:
 
 ```bash
-npm run version:patch  # or minor/major
+pnpm run version:patch  # or minor/major
 ```
 
 ### Build fails
 
 ```bash
 # Clean everything and rebuild
-npm run clean
-npm run build:all
+pnpm run clean
+pnpm run build:all
 ```
 
 ### Tests fail
@@ -219,8 +219,8 @@ npm run build:all
 Fix tests before deploying:
 
 ```bash
-npm run test:coverage
-npm run test:e2e
+pnpm run test:coverage
+pnpm run test:e2e
 ```
 
 ## Post-Deployment Checklist
@@ -256,10 +256,13 @@ jobs:
         with:
           node-version: "22"
           registry-url: "https://registry.npmjs.org/"
-      - run: npm ci
-      - run: npm test
-      - run: npm run build:all
-      - run: npm publish
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: pnpm install
+      - run: pnpm test
+      - run: pnpm run build:all
+      - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 ```
@@ -268,24 +271,24 @@ jobs:
 
 ```bash
 # Complete automated deploy
-npm run deploy
+pnpm run deploy
 
 # Build everything
-npm run build:all
+pnpm run build:all
 
 # Verify package
-npm run verify
+pnpm run verify
 
 # Version bumps
-npm run version:patch
-npm run version:minor
-npm run version:major
+pnpm run version:patch
+pnpm run version:minor
+pnpm run version:major
 
 # Clean build artifacts
-npm run clean
+pnpm run clean
 
 # Publish manually
-npm publish
+pnpm publish
 ```
 
 ## Support

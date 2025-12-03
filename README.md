@@ -87,7 +87,7 @@ Initialize with default or custom options:
     throttleDelay: 16, // throttle delay in ms (default: 16ms/60fps)
   });
   hoverZoom.init();
-  
+
   // Cleanup when done (optional)
   // hoverZoom.destroy();
 </script>
@@ -97,10 +97,17 @@ Initialize with default or custom options:
 
 ### 2. Using HoverZoom with NPM / Module Bundlers
 
-Install via NPM:
+Install via package manager:
 
 ```bash
+# pnpm (recommended)
+pnpm add hoverzoom-js
+
+# npm
 npm install hoverzoom-js
+
+# yarn
+yarn add hoverzoom-js
 ```
 
 Import and initialize in your JavaScript/TypeScript project:
@@ -211,15 +218,15 @@ HoverZoom is optimized for maximum performance:
 
 ```bash
 # Unit tests (Jest)
-npm test
-npm run test:coverage  # With coverage report
+pnpm test
+pnpm run test:coverage  # With coverage report
 
 # E2E tests (Playwright)
-npm run test:e2e
-npm run test:e2e:ui    # With UI mode
+pnpm run test:e2e
+pnpm run test:e2e:ui    # With UI mode
 
 # All tests
-npm run test:all
+pnpm run test:all
 ```
 
 See [TESTING.md](./TESTING.md) for detailed testing documentation.
@@ -228,13 +235,13 @@ See [TESTING.md](./TESTING.md) for detailed testing documentation.
 
 ```bash
 # Build for production
-npm run build:all
+pnpm run build:all
 
 # Verify package contents
-npm run verify
+pnpm run verify
 
 # Deploy to npm (automated)
-npm run deploy
+pnpm run deploy
 ```
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment guide.

@@ -14,33 +14,33 @@ Current coverage targets: **80%** minimum across all metrics (branches, function
 
 ```bash
 # Run all unit tests
-npm test
+pnpm test
 
 # Run tests in watch mode
-npm run test:watch
+pnpm run test:watch
 
 # Run tests with coverage report
-npm run test:coverage
+pnpm run test:coverage
 ```
 
 ### E2E Tests (Playwright)
 
 ```bash
 # Run e2e tests (headless)
-npm run test:e2e
+pnpm run test:e2e
 
 # Run e2e tests with UI
-npm run test:e2e:ui
+pnpm run test:e2e:ui
 
 # Run e2e tests in headed mode (see browser)
-npm run test:e2e:headed
+pnpm run test:e2e:headed
 ```
 
 ### Run All Tests
 
 ```bash
 # Run both unit and e2e tests
-npm run test:all
+pnpm run test:all
 ```
 
 ## Test Structure

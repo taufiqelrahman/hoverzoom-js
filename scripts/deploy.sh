@@ -50,16 +50,16 @@ print_step "Repository up to date"
 
 # Run linter
 print_info "Running linter..."
-npm run lint
+pnpm run lint
 print_step "Linting passed"
 
 # Run tests
 print_info "Running unit tests with coverage..."
-npm run test:coverage
+pnpm run test:coverage
 print_step "Unit tests passed"
 
 print_info "Running e2e tests..."
-npm run test:e2e -- --project=chromium
+pnpm run test:e2e -- --project=chromium
 print_step "E2E tests passed"
 
 # Clean dist directory
@@ -70,17 +70,17 @@ print_step "Dist directory cleaned"
 
 # Build project
 print_info "Building project..."
-npm run build
+pnpm run build
 print_step "Build completed"
 
 # Minify assets
 print_info "Minifying assets..."
-npm run minify
+pnpm run minify
 print_step "Minification completed"
 
 # Update demo files
 print_info "Updating demo files..."
-npm run demo
+pnpm run demo
 print_step "Demo files updated"
 
 # Check package.json version
@@ -99,13 +99,13 @@ read -p "Enter choice [1-4]: " VERSION_CHOICE
 
 case $VERSION_CHOICE in
     1)
-        npm version patch -m "chore: bump version to %s"
+        pnpm version patch -m "chore: bump version to %s"
         ;;
     2)
-        npm version minor -m "chore: bump version to %s"
+        pnpm version minor -m "chore: bump version to %s"
         ;;
     3)
-        npm version major -m "chore: bump version to %s"
+        pnpm version major -m "chore: bump version to %s"
         ;;
     4)
         print_info "Skipping version bump"
@@ -123,7 +123,7 @@ fi
 
 # Verify package contents
 print_info "Verifying package contents..."
-npm pack --dry-run
+pnpm pack --dry-run
 print_step "Package verification complete"
 
 # Ask for confirmation
@@ -138,7 +138,7 @@ fi
 
 # Publish to npm
 print_info "Publishing to npm..."
-npm publish
+pnpm publish
 
 print_step "Successfully published to npm!"
 

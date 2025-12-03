@@ -15,15 +15,15 @@ mkdir -p dist
 
 # Lint
 echo "Running linter..."
-npm run lint
+pnpm run lint
 
 # Compile SCSS
 echo "Compiling SCSS..."
-npm run scss
+pnpm run scss
 
 # Bundle with Rollup
 echo "Bundling with Rollup..."
-npx rollup -c
+pnpm exec rollup -c
 
 # Copy types
 echo "Copying type definitions..."
@@ -31,11 +31,11 @@ cp src/HoverZoom.d.ts dist/hoverzoom.d.ts
 
 # Minify
 echo "Minifying assets..."
-npm run minify
+pnpm run minify
 
 # Update demo
 echo "Updating demo files..."
-npm run demo
+pnpm run demo
 
 echo ""
 echo "✨ Build completed successfully!"
