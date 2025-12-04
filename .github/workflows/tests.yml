@@ -70,7 +70,7 @@ jobs:
         run: pnpm exec playwright install --with-deps
 
       - name: Build project
-        run: pnpm run build && pnpm run minify && pnpm run demo
+        run: pnpm run build
 
       - name: Run Playwright tests
         run: pnpm run test:e2e
