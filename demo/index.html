@@ -202,11 +202,11 @@
           <h5 class="title is-6">[type=outside position=right]</h5>
           <div class="hoverzoom">
             <img
+              width="300"
               class="hoverzoom-image"
               src="/images/phil-hearing-0QKDO0pQSmY-unsplash-small.jpg"
               data-large-image="/images/phil-hearing-0QKDO0pQSmY-unsplash.jpg"
               data-type="outside"
-              style="max-width: 300px"
             />
           </div>
         </div>
@@ -248,14 +248,17 @@
 
     <script src="hoverzoom.umd.min.js"></script>
     <script>
-      const hz = new HoverZoom({
-        position: "right",
-        // type: 'outside',
-        // type: 'inside',
-        // blur: true,
-        // grayscale: true,
+      // Initialize after DOM and images are loaded
+      window.addEventListener('load', function() {
+        const hz = new HoverZoom({
+          position: "right",
+          // type: 'outside',
+          // type: 'inside',
+          // blur: true,
+          // grayscale: true,
+        });
+        hz.init();
       });
-      hz.init();
     </script>
   </body>
 </html>
