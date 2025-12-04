@@ -80,8 +80,13 @@ print_step "Minification completed"
 
 # Update demo files
 print_info "Updating demo files..."
-pnpm run demo
+pnpm run demo:copy
 print_step "Demo files updated"
+
+# Verify demo files
+print_info "Verifying demo files are in sync..."
+pnpm run demo:verify
+print_step "Demo files verified"
 
 # Check package.json version
 CURRENT_VERSION=$(node -p "require('./package.json').version")

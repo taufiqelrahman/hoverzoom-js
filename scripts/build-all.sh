@@ -35,7 +35,11 @@ pnpm run minify
 
 # Update demo
 echo "Updating demo files..."
-pnpm run demo
+pnpm run demo:copy
+
+# Verify demo files
+echo "Verifying demo files..."
+pnpm run demo:verify
 
 echo ""
 echo "✨ Build completed successfully!"

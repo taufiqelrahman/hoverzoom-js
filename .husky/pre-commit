@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Check if source files changed
+if git diff --cached --name-only | grep -q "^src/"; then
+  echo "📦 Source files changed, verifying demo files..."
+  pnpm run demo:verify || {
+    echo ""
+    echo "❌ Demo files are outdated!"
+    echo "Run: pnpm run build"
+    echo "Then: git add demo/"
+    exit 1
+  }
+fi
