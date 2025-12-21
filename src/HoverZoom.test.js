@@ -3,7 +3,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import HoverZoom from '../src/HoverZoom.js';
+import HoverZoom from '../src/HoverZoom.ts';
 
 describe('HoverZoom', () => {
   let container;

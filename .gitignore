@@ -1,5 +1,6 @@
 node_modules
 package
+.rollup.cache
 
 # Test coverage reports
 coverage/

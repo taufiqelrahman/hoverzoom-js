@@ -1,19 +1,28 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import typescript from "@rollup/plugin-typescript";
 
 export default {
-  input: 'src/HoverZoom.js',
+  input: "src/HoverZoom.ts",
   output: [
     {
-      file: 'dist/hoverzoom.esm.js',
-      format: 'esm'
+      file: "dist/hoverzoom.esm.js",
+      format: "esm",
     },
     {
-      file: 'dist/hoverzoom.umd.js',
-      format: 'umd',
-      name: 'HoverZoom', // jadi window.HoverZoom di browser
-      exports: 'default'
-    }
+      file: "dist/hoverzoom.umd.js",
+      format: "umd",
+      name: "HoverZoom",
+      exports: "default",
+    },
   ],
-  plugins: [resolve(), commonjs()]
+  plugins: [
+    typescript({
+      tsconfig: "./tsconfig.json",
+      declaration: false,
+      declarationMap: false,
+    }),
+    resolve(),
+    commonjs(),
+  ],
 };

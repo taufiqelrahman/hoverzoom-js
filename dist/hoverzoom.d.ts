@@ -1,41 +1,44 @@
-///////////////////////////////////
-//
-//  Type definitions for HoverZoom
-//
-///////////////////////////////////
-
-declare interface HoverZoomClassNames {
-  container: string;
-  image: string;
-  zoomedImage: string;
-  magnifier: string;
-  magnifierRound: string;
-  magnifierImage: string;
+interface HoverZoomClassNames {
+    container: string;
+    image: string;
+    zoomedImage: string;
+    magnifier: string;
+    magnifierRound: string;
+    magnifierImage: string;
 }
-
-declare interface HoverZoomOptions {
-  classNames?: Partial<HoverZoomClassNames>;
-  position?: "right" | "column" | string;
-  type?: "outside" | "inside" | string;
-  largeImage?: string;
-  blur?: boolean;
-  grayscale?: boolean;
-  throttleDelay?: number;
+interface HoverZoomOptions {
+    classNames?: Partial<HoverZoomClassNames>;
+    position?: "right" | "column" | string;
+    type?: "outside" | "inside" | string;
+    largeImage?: string;
+    blur?: boolean;
+    grayscale?: boolean;
+    throttleDelay?: number;
 }
-
 declare class HoverZoom {
-  constructor(options?: HoverZoomOptions);
-  init(): void;
-  destroy(): void;
-  // Internal methods (not recommended for public use)
-  private applyHoverZoom(): void;
-  private outsideZoom(): void;
-  private attachZoomedImage(): void;
-  private insideZoom(): void;
-  private addMouseListener(): void;
-  private throttle(func: Function, delay: number): Function;
-  private cacheElement(key: string, element: HTMLElement): HTMLElement;
-  private preloadImage(src: string): Promise<HTMLImageElement>;
+    private options;
+    private isSafari;
+    private domCache;
+    private rafId;
+    private lastCall;
+    private imageCache;
+    private iteration;
+    private currentContainer;
+    private currentImageEl;
+    private zoomedElement;
+    private magnifierElement;
+    private magnifierImageElement;
+    constructor(options?: HoverZoomOptions);
+    private throttle;
+    private cacheElement;
+    private preloadImage;
+    init(): void;
+    private applyHoverZoom;
+    private outsideZoom;
+    private attachZoomedImage;
+    private insideZoom;
+    private addMouseListener;
+    destroy(): void;
 }
-
 export default HoverZoom;
+//# sourceMappingURL=HoverZoom.d.ts.map

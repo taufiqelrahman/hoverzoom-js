@@ -25,9 +25,14 @@ pnpm run scss
 echo "Bundling with Rollup..."
 pnpm exec rollup -c
 
-# Copy types
-echo "Copying type definitions..."
-cp src/HoverZoom.d.ts dist/hoverzoom.d.ts
+# Generate type definitions
+echo "Generating type definitions..."
+pnpm run types
+
+# Rename type definition files to lowercase
+echo "Renaming type definitions..."
+mv dist/HoverZoom.d.ts dist/hoverzoom.d.ts 2>/dev/null || true
+mv dist/HoverZoom.d.ts.map dist/hoverzoom.d.ts.map 2>/dev/null || true
 
 # Minify
 echo "Minifying assets..."

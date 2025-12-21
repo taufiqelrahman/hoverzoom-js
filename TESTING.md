@@ -48,6 +48,7 @@ pnpm run test:all
 ### Unit Tests
 
 - **Location:** `src/HoverZoom.test.js`
+- **Source:** `src/HoverZoom.ts` (TypeScript)
 - **Framework:** Jest with jsdom environment
 - **Coverage:**
   - Constructor and initialization

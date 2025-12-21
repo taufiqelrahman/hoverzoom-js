@@ -1,12 +1,17 @@
 export default {
   testEnvironment: "jsdom",
-  transform: {},
+  extensionsToTreatAsEsm: [".ts"],
   moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.ts$": "$1",
     "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
   },
+  transform: {
+    "^.+\\.(js|ts)$": ["babel-jest", { configFile: "./babel.config.js" }],
+  },
   collectCoverageFrom: [
-    "src/**/*.js",
+    "src/**/*.{js,ts}",
     "!src/**/*.test.js",
+    "!src/**/*.d.ts",
     "!**/node_modules/**",
   ],
   coverageThreshold: {

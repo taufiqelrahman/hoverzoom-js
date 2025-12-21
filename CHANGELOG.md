@@ -1,3 +1,21 @@
+## [1.9.0] - 2025-12-21
+
+### Changed
+
+- **Migrated to TypeScript** - Complete TypeScript migration with full type safety
+- Source code now written in TypeScript (`HoverZoom.ts`)
+- Type definitions automatically generated from source code
+- Enhanced IDE support with inline type hints and autocomplete
+- Gradual migration strategy allows coexistence of JS/TS files during development
+
+### Developer Experience
+
+- Added `tsconfig.json` with gradual migration settings
+- Updated build pipeline to compile TypeScript via Rollup
+- All class properties, methods, and parameters now fully typed
+- Type-safe interfaces for `HoverZoomOptions` and `HoverZoomClassNames`
+- Improved code maintainability with explicit type annotations
+
 ## [1.8.0] - 2025-12-01
 
 ### Added

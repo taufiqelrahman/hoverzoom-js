@@ -26,7 +26,7 @@ No dependencies, no jQuery, fully optimized for minimal download size and fast p
 - 🖼️ **Lazy Loading** – Preloads large images only when needed
 - 🧹 **Memory Safe** – Proper cleanup with `destroy()` method
 - ✅ **Well Tested** – 95%+ unit test coverage, cross-browser e2e tests
-- 📘 **TypeScript Support** – Full type definitions included
+- 📘 **TypeScript** – Written in TypeScript with full type definitions
 
 ---
 
@@ -196,8 +196,11 @@ git push origin feature/amazing-feature
 
 ### Guidelines
 
-- Follow TypeScript best practices
-- Write tests for new features
+- Follow TypeScript best practices (source is in `src/HoverZoom.ts`)
+- Write tests for new features (unit tests in Jest, e2e in Playwright)
+- Run `pnpm run build` to compile TypeScript and test changes
+- Ensure all tests pass: `pnpm run test:all`
+- Follow existing code style and conventions
 - Use conventional commit messages
 - Keep code clean & formatted
 
@@ -234,7 +237,7 @@ See [TESTING.md](./TESTING.md) for detailed testing documentation.
 ## 📦 Deployment
 
 ```bash
-# Build for production
+# Build for production (compiles TypeScript)
 pnpm run build:all
 
 # Verify package contents
@@ -245,6 +248,27 @@ pnpm run deploy
 ```
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment guide.
+
+## 🛠️ Development
+
+The project is written in **TypeScript** for better type safety and developer experience:
+
+- **Source**: `src/HoverZoom.ts` (TypeScript)
+- **Build**: Compiled to JavaScript via Rollup + TypeScript plugin
+- **Output**: `dist/*.js` (ES Module & UMD formats)
+- **Types**: Type definitions auto-generated during build
+
+```bash
+# Install dependencies
+pnpm install
+
+# Development workflow
+pnpm run dev          # Build + start dev server
+pnpm run build        # Compile TypeScript + build all
+pnpm run test:watch   # Run tests in watch mode
+```
+
+See [BUILD_WORKFLOW.md](./BUILD_WORKFLOW.md) for detailed build documentation.
 
 ## 📄 License
 

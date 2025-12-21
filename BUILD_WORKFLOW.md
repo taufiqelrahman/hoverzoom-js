@@ -19,18 +19,21 @@ pnpm run dev          # Builds + updates demo + starts server
 ### Scripts
 
 #### Build Scripts
+
 - `pnpm run build` - Lint → SCSS → Rollup → Minify → **Auto-update demo**
 - `pnpm run build:all` - Full build with verification
 - `pnpm run minify` - Minify CSS and JS only
 - `pnpm run scss` - Compile SCSS only
 
 #### Demo Scripts
+
 - `pnpm run demo:copy` - Copy built files to demo folder
 - `pnpm run demo:verify` - Verify demo files are in sync with dist
 - `pnpm run demo:dev` - Build + start dev server at http://localhost:8080
 - `pnpm run dev` - Alias for demo:dev
 
 #### Verification
+
 - `pnpm run demo:verify` - Checks if demo files match dist files using SHA256 hashes
 
 ### Pre-Commit Hook
@@ -80,12 +83,14 @@ pnpm run demo:verify
 ```
 
 Expected output:
+
 ```
 🔍 Verifying demo files are up to date...
 ✓ All demo files are up to date!
 ```
 
 If outdated:
+
 ```
 ✗ demo/hoverzoom.umd.js is outdated!
 ⚠ Demo files are out of sync with dist files!
@@ -98,8 +103,8 @@ Or:  pnpm run build
 ### Development
 
 ```bash
-# Make changes to src/HoverZoom.js
-vim src/HoverZoom.js
+# Make changes to src/HoverZoom.ts
+vim src/HoverZoom.ts
 
 # Build (automatically updates demo)
 pnpm run build
@@ -141,7 +146,8 @@ pnpm run deploy
 ```
 hoverzoom-js/
 ├── src/
-│   ├── HoverZoom.js       # Source code
+│   ├── HoverZoom.ts       # Source code (TypeScript)
+│   ├── HoverZoom.test.js  # Unit tests
 │   └── style.scss         # Source styles
 ├── dist/                  # Built files (for npm)
 │   ├── hoverzoom.umd.js
@@ -187,11 +193,13 @@ git commit --no-verify
 ### Vercel deployment showing old code
 
 This should never happen now because:
+
 1. Build process auto-updates demo
 2. Pre-commit hook blocks outdated commits
 3. Vercel deploys from demo/ folder
 
 If it does happen:
+
 ```bash
 pnpm run build
 git add demo/

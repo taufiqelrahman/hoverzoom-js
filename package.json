@@ -17,7 +17,8 @@
   },
   "scripts": {
     "scss": "sass src/style.scss dist/hoverzoom.css",
-    "lint": "eslint --fix src",
+    "types": "tsc --emitDeclarationOnly --declaration --declarationMap --outDir dist",
+    "lint": "eslint --fix src/**/*.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
@@ -25,7 +26,7 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:all": "pnpm run test:coverage && pnpm run test:e2e",
-    "build": "pnpm lint && pnpm scss && rollup -c && cp src/HoverZoom.d.ts dist/hoverzoom.d.ts && pnpm run minify && pnpm run demo:copy",
+    "build": "pnpm lint && pnpm scss && rollup -c && pnpm run types && mv dist/HoverZoom.d.ts dist/hoverzoom.d.ts 2>/dev/null || true && mv dist/HoverZoom.d.ts.map dist/hoverzoom.d.ts.map 2>/dev/null || true && pnpm run minify && pnpm run demo:copy",
     "build:all": "bash scripts/build-all.sh",
     "minify": "cleancss -o dist/hoverzoom.min.css dist/hoverzoom.css && terser dist/hoverzoom.umd.js -o dist/hoverzoom.umd.min.js --compress --mangle && terser dist/hoverzoom.esm.js -o dist/hoverzoom.esm.min.js --compress --mangle",
     "demo:copy": "cp dist/hoverzoom.umd.js demo/hoverzoom.umd.js && cp dist/hoverzoom.umd.min.js demo/hoverzoom.umd.min.js && cp dist/hoverzoom.min.css demo/hoverzoom.min.css",
@@ -42,12 +43,17 @@
     "version:major": "pnpm version major -m 'chore: bump version to %s'"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@jest/globals": "^30.2.0",
     "@playwright/test": "^1.57.0",
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.3.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
+    "babel-jest": "^30.2.0",
     "clean-css-cli": "^5.6.3",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
@@ -60,7 +66,10 @@
     "jest-environment-jsdom": "^30.2.0",
     "rollup": "^4.46.2",
     "sass": "^1.90.0",
-    "terser": "^5.43.1"
+    "terser": "^5.43.1",
+    "ts-jest": "^29.4.6",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3"
   },
   "keywords": [
     "hover",

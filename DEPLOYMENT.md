@@ -123,7 +123,13 @@ Edit `CHANGELOG.md` and add entry for new version:
 ### Fixed
 
 - Bug fixes
+
+### Developer Experience (if applicable)
+
+- TypeScript/tooling improvements
 ```
+
+**Note:** The project is now written in TypeScript. Source code is in `src/HoverZoom.ts` and compiles to JavaScript during build.
 
 ### 7. Publish to npm
 
@@ -181,10 +187,11 @@ dist/
 
 See `.npmignore` for complete list. Excluded:
 
-- Source files (`src/`)
+- Source files (`src/*.ts`, `src/*.scss`)
 - Tests (`e2e/`, `**/*.test.js`)
-- Config files (rollup, jest, playwright, etc.)
+- Config files (rollup, jest, playwright, tsconfig.json, etc.)
 - Development files (demo, coverage, etc.)
+- TypeScript build artifacts (`.rollup.cache/`, `*.tsbuildinfo`)
 
 ## Troubleshooting
 
@@ -214,6 +221,12 @@ pnpm run clean
 pnpm run build:all
 ```
 
+If TypeScript errors occur, check:
+
+- `tsconfig.json` is properly configured
+- All type annotations in `src/HoverZoom.ts` are valid
+- TypeScript dependencies are installed (`typescript`, `@rollup/plugin-typescript`)
+
 ### Tests fail
 
 Fix tests before deploying:
@@ -230,7 +243,7 @@ After successful deployment:
 - [ ] Verify package on npm: https://www.npmjs.com/package/hoverzoom-js
 - [ ] Check version number is correct
 - [ ] Test installation: `npm install hoverzoom-js@latest`
-- [ ] Verify demo site works: https://hoverzoom-js.vercel.app
+- [ ] Verify demo site works: https://hoverzoom-js.x.app
 - [ ] Update GitHub release notes
 - [ ] Announce update (if major/minor)
 
