@@ -59,7 +59,7 @@ pnpm run test:coverage
 print_step "Unit tests passed"
 
 print_info "Running e2e tests..."
-pnpm run test:e2e -- --project=chromium
+pnpm run test:e2e
 print_step "E2E tests passed"
 
 # Clean dist directory
