@@ -263,6 +263,29 @@ onUnmounted(() => {
 
 ---
 
+## Troubleshooting
+
+**Zoom not working?**
+
+- Ensure both CSS and JS files are loaded (check browser console)
+- Verify HTML structure: parent with `hoverzoom` class, image with `hoverzoom-image` class
+- Call `hoverZoom.init()` after adding elements dynamically
+- For SPAs (React/Vue): Make sure to call `destroy()` on unmount to prevent memory leaks
+
+**Image not loading?**
+
+- Check `data-large-image` path is correct (relative to HTML file or absolute URL)
+- Open browser DevTools Network tab to verify image loads successfully
+- Ensure image CORS settings allow cross-origin loading if using external URLs
+
+**TypeScript errors?**
+
+- Make sure you're using v2.0.0 or later (includes TypeScript definitions)
+- Import as: `import HoverZoom from "hoverzoom-js"`
+- Check [src/HoverZoom.d.ts](src/HoverZoom.d.ts) for type definitions
+
+---
+
 ## 🤝 Contributing
 
 We ❤️ contributions!
