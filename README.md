@@ -41,63 +41,111 @@ Tested in:
 
 ---
 
-## Getting Started
+## Quick Start
 
-### 1. CDN / Script Tag
+The fastest way to get started:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- CSS from CDN -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/hoverzoom-js@latest/dist/hoverzoom.min.css"
+    />
+  </head>
+  <body>
+    <!-- Your image -->
+    <div class="hoverzoom">
+      <img class="hoverzoom-image" src="your-image.jpg" alt="Zoom image" />
+    </div>
+
+    <!-- JS from CDN -->
+    <script src="https://unpkg.com/hoverzoom-js@latest/dist/hoverzoom.umd.min.js"></script>
+    <script>
+      // Initialize
+      const hoverZoom = new HoverZoom();
+      hoverZoom.init();
+    </script>
+  </body>
+</html>
+```
+
+---
+
+## Installation
+
+### 1. Via CDN (No Build Required)
 
 Include the stylesheet in your `<head>`:
 
 ```html
-<link rel="stylesheet" href="hoverzoom.css" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/hoverzoom-js@2.0.0/dist/hoverzoom.min.css"
+/>
 ```
 
 Include the script before closing `<body>`:
 
 ```html
-<script src="hoverzoom.js"></script>
+<script src="https://unpkg.com/hoverzoom-js@2.0.0/dist/hoverzoom.umd.min.js"></script>
 ```
 
-Add the required HTML structure:
+**HTML Structure:**
 
 ```html
+<!-- Basic usage -->
 <div class="hoverzoom">
-  <img
-    class="hoverzoom-image"
-    src="required.jpg"
-    data-large-image="optional-large.jpg"
-    data-blur="true"
-    data-grayscale="true"
-    data-type="outside"
-    data-position="right"
-  />
+  <img class="hoverzoom-image" src="image.jpg" alt="Zoom this image" />
+</div>
+
+<!-- With all options -->
+<div class="hoverzoom">
+  <img class="hoverzoom-image" src="thumbnail.jpg"
+  data-large-image="full-size.jpg"
+  <!-- Optional: use different image for zoom -->
+  data-type="outside"
+  <!-- 'outside' or 'inside' -->
+  data-position="right"
+  <!-- 'right' or 'bottom' (for outside type) -->
+  data-blur="true"
+  <!-- Optional: blur effect -->
+  data-grayscale="true"
+  <!-- Optional: grayscale effect -->
+  alt="Product image" >
 </div>
 ```
 
-Initialize with default or custom options:
+**Initialize:**
 
 ```html
-<link rel="stylesheet" href="node_modules/hoverzoom-js/style.css" />
-<script src="node_modules/hoverzoom-js/dist/hoverzoom.umd.min.js"></script>
 <script>
+  // Default options
+  const hoverZoom = new HoverZoom();
+  hoverZoom.init();
+
+  // Or with custom options
   const hoverZoom = new HoverZoom({
-    position: "right", // 'right' | 'bottom' (only for type: 'outside')
+    position: "right", // 'right' | 'bottom' (for outside type)
     type: "outside", // 'outside' | 'inside'
-    blur: true, // apply blur filter
-    grayscale: true, // apply grayscale filter
-    throttleDelay: 16, // throttle delay in ms (default: 16ms/60fps)
+    blur: false, // apply blur filter on hover
+    grayscale: false, // apply grayscale filter on hover
+    throttleDelay: 16, // mousemove throttle (ms) - 16ms = ~60fps
   });
   hoverZoom.init();
 
-  // Cleanup when done (optional)
+  // Cleanup when done (e.g., SPA route change)
   // hoverZoom.destroy();
 </script>
 ```
 
 ---
 
-### 2. Using HoverZoom with NPM / Module Bundlers
+### 2. Via NPM / Package Manager
 
-Install via package manager:
+**Install:**
 
 ```bash
 # pnpm (recommended)
@@ -110,35 +158,76 @@ npm install hoverzoom-js
 yarn add hoverzoom-js
 ```
 
-Import and initialize in your JavaScript/TypeScript project:
+**JavaScript/TypeScript Usage:**
 
-```js
-// ES Module
-
-// import JS
+```typescript
+// ES Module (TypeScript or modern JS)
 import HoverZoom from "hoverzoom-js";
-// import CSS
 import "hoverzoom-js/style.css";
 
 const hoverZoom = new HoverZoom({
   position: "right",
   type: "outside",
-  blur: true,
-  grayscale: true,
+  blur: false,
+  grayscale: false,
 });
 
 // Initialize all elements with 'hoverzoom' class
 hoverZoom.init();
 
-// Cleanup when component unmounts or not needed
+// Cleanup when component unmounts (important for SPAs)
 // hoverZoom.destroy();
+```
 
-// CommonJS
-const HoverZoom = require("hoverzoom-js");
-require("hoverzoom-js/style.css");
+**React Example:**
 
-const hoverZoom = new HoverZoom();
-hoverZoom.init();
+```tsx
+import { useEffect } from "react";
+import HoverZoom from "hoverzoom-js";
+import "hoverzoom-js/style.css";
+
+function ProductImage() {
+  useEffect(() => {
+    const hoverZoom = new HoverZoom();
+    hoverZoom.init();
+
+    // Cleanup on unmount
+    return () => hoverZoom.destroy();
+  }, []);
+
+  return (
+    <div className="hoverzoom">
+      <img className="hoverzoom-image" src="product.jpg" alt="Product" />
+    </div>
+  );
+}
+```
+
+**Vue Example:**
+
+```vue
+<template>
+  <div class="hoverzoom">
+    <img class="hoverzoom-image" src="product.jpg" alt="Product" />
+  </div>
+</template>
+
+<script setup>
+import { onMounted, onUnmounted } from "vue";
+import HoverZoom from "hoverzoom-js";
+import "hoverzoom-js/style.css";
+
+let hoverZoom;
+
+onMounted(() => {
+  hoverZoom = new HoverZoom();
+  hoverZoom.init();
+});
+
+onUnmounted(() => {
+  hoverZoom?.destroy();
+});
+</script>
 ```
 
 ---
