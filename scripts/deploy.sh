@@ -128,7 +128,7 @@ fi
 
 # Verify package contents
 print_info "Verifying package contents..."
-pnpm pack --dry-run
+pnpm run verify
 print_step "Package verification complete"
 
 # Ask for confirmation
