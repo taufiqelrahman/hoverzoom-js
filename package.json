@@ -1,6 +1,6 @@
 {
   "name": "hoverzoom-js",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A lightweight, high-performance hover-to-zoom image magnifier plugin with zero dependencies",
   "main": "dist/hoverzoom.esm.min.js",
   "module": "dist/hoverzoom.esm.min.js",
