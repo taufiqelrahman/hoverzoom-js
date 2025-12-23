@@ -66,11 +66,6 @@ describe('HoverZoom', () => {
       expect(hoverZoom.options.classNames.container).toBe('custom-container');
       expect(hoverZoom.options.classNames.image).toBe('hoverzoom-image');
     });
-
-    test('should detect Safari browser', () => {
-      const hoverZoom = new HoverZoom();
-      expect(typeof hoverZoom.isSafari).toBe('boolean');
-    });
   });
 
   describe('init()', () => {
@@ -409,7 +404,8 @@ describe('HoverZoom', () => {
       document.body.innerHTML = '<div class="hoverzoom"></div>';
       const hoverZoom = new HoverZoom();
 
-      expect(() => hoverZoom.init()).toThrow();
+      // Should not throw - just returns early
+      expect(() => hoverZoom.init()).not.toThrow();
     });
 
     test('should handle null magnifier element in mousemove', () => {

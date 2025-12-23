@@ -1,3 +1,26 @@
+## [2.2.0] - 2025-12-23
+
+### Fixed
+
+- **Critical zoom functionality bug** - Fixed magnifier image transform not being applied correctly
+- Transform for `magnifierImageElement` now properly applied for both inside and outside zoom types
+- Restored correct behavior where magnifier lens follows mouse movement smoothly
+
+### Changed
+
+- **Enabled TypeScript strict mode** - Full strict type checking for enhanced code quality
+- Enabled all strict compiler options: `strict`, `noUnusedLocals`, `noUnusedParameters`
+- Fixed all strict mode type errors with proper null checks and type assertions
+- Removed unused `isSafari` property and related browser detection code
+- Updated test suite to align with strict mode changes (40 unit tests passing)
+
+### Developer Experience
+
+- All TypeScript strict checks now enabled for maximum type safety
+- Definite assignment assertions (`!`) used for class properties initialized in `init()`
+- Non-null assertions used where DOM elements are guaranteed to exist
+- Improved code quality with no unused variables or parameters
+
 ## [1.9.0] - 2025-12-21
 
 ### Changed

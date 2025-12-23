@@ -7,6 +7,7 @@
 ///////////////////////////////////
 class HoverZoom {
     constructor(options = {}) {
+        this.iteration = 0;
         const defaults = {
             classNames: {
                 container: "hoverzoom",
@@ -28,11 +29,6 @@ class HoverZoom {
             ...options,
             classNames: { ...defaults.classNames, ...(options.classNames || {}) },
         };
-        this.isSafari =
-            /constructor/i.test(window.HTMLElement) ||
-                ((p) => p.toString() === "[object SafariRemoteNotification]")(!window["safari"] ||
-                    (typeof window.safari !== "undefined" &&
-                        window.safari.pushNotification));
         // Cache for DOM references
         this.domCache = new Map();
         // Animation frame ID for smooth rendering
@@ -62,7 +58,9 @@ class HoverZoom {
     // Preload image with lazy loading
     preloadImage(src) {
         if (this.imageCache.has(src)) {
-            return Promise.resolve(this.imageCache.get(src));
+            const cached = this.imageCache.get(src);
+            if (cached)
+                return Promise.resolve(cached);
         }
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -84,7 +82,10 @@ class HoverZoom {
     }
     applyHoverZoom() {
         const { image } = this.options.classNames;
-        this.currentImageEl = this.currentContainer.querySelector(`.${image}`);
+        const imageEl = this.currentContainer.querySelector(`.${image}`);
+        if (!imageEl)
+            return;
+        this.currentImageEl = imageEl;
         this.currentImageEl.setAttribute("id", `${image}-${this.iteration}`);
         // Cache current image element
         this.cacheElement(`image-${this.iteration}`, this.currentImageEl);
@@ -172,14 +173,16 @@ class HoverZoom {
     addMouseListener() {
         const { image, magnifier, magnifierImage, zoomedImage } = this.options.classNames;
         // Use cached DOM references
-        const magnifierImageElement = this.domCache.get(`magnifier-image-${this.iteration}`) ||
-            document.getElementById(`${magnifierImage}-${this.iteration}`);
         const magnifierElement = this.domCache.get(`magnifier-${this.iteration}`) ||
             document.getElementById(`${magnifier}-${this.iteration}`);
         const zoomedElement = this.domCache.get(`zoomed-${this.iteration}`) ||
             document.getElementById(`${zoomedImage}-${this.iteration}`);
         const currentImageEl = this.domCache.get(`image-${this.iteration}`) ||
             document.getElementById(`${image}-${this.iteration}`);
+        const magnifierImageElement = this.domCache.get(`magnifier-image-${this.iteration}`) ||
+            document.getElementById(`${magnifierImage}-${this.iteration}`);
+        if (!magnifierElement || !currentImageEl)
+            return;
         // Cache dimensions to avoid repeated reflows
         const { offsetHeight, offsetWidth } = magnifierElement;
         const type = currentImageEl.dataset.type || this.options.type;
@@ -204,10 +207,12 @@ class HoverZoom {
             }
             // Use requestAnimationFrame for smooth rendering
             this.rafId = requestAnimationFrame(() => {
+                if (!currentImageEl || !magnifierElement)
+                    return;
                 // Apply filter on first move
                 currentImageEl.style.setProperty("filter", filter);
                 magnifierElement.style.setProperty("opacity", "1");
-                if (type === "outside")
+                if (type === "outside" && zoomedElement)
                     zoomedElement.style.setProperty("opacity", "1");
                 const posX = event.offsetX
                     ? event.offsetX
@@ -216,15 +221,17 @@ class HoverZoom {
                     ? event.offsetY
                     : event.pageY - currentImageEl.offsetTop;
                 // Update background positions
-                if (type === "outside") {
+                if (type === "outside" && zoomedElement) {
                     zoomedElement.style.setProperty("background-position", `${-posX * bgPosXMultiplier}px ${-posY * bgPosYMultiplier}px`);
                 }
-                else {
+                if (type !== "outside" && magnifierImageElement) {
                     magnifierImageElement.style.setProperty("background-position", `${-posX * bgPosXMultiplier}px ${-posY * bgPosYMultiplier}px`);
                 }
                 // Update transforms using translate3d for GPU acceleration
                 magnifierElement.style.setProperty("transform", `translate3d(${event.offsetX - magnifierTransformX}px, ${event.offsetY + magnifierTransformY}px, 0)`);
-                magnifierImageElement.style.setProperty("transform", `translate3d(${-event.offsetX + magnifierOffsetX}px, ${-event.offsetY + magnifierOffsetY}px, 0)`);
+                if (magnifierImageElement) {
+                    magnifierImageElement.style.setProperty("transform", `translate3d(${-event.offsetX + magnifierOffsetX}px, ${-event.offsetY + magnifierOffsetY}px, 0)`);
+                }
             });
         }, this.options.throttleDelay);
         this.currentImageEl.addEventListener("mousemove", handleMouseMove);
@@ -234,9 +241,11 @@ class HoverZoom {
                 cancelAnimationFrame(this.rafId);
                 this.rafId = null;
             }
+            if (!currentImageEl || !magnifierElement)
+                return;
             currentImageEl.style.setProperty("filter", "unset");
             magnifierElement.style.setProperty("opacity", "0");
-            if (type === "outside")
+            if (type === "outside" && zoomedElement)
                 zoomedElement.style.setProperty("opacity", "0");
         });
     }

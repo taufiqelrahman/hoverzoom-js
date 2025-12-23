@@ -16,8 +16,7 @@ interface HoverZoomOptions {
     throttleDelay?: number;
 }
 declare class HoverZoom {
-    private options;
-    private isSafari;
+    options: Required<HoverZoomOptions>;
     private domCache;
     private rafId;
     private lastCall;

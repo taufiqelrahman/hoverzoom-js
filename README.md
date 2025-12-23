@@ -26,7 +26,8 @@ No dependencies, no jQuery, fully optimized for minimal download size and fast p
 - 🖼️ **Lazy Loading** – Preloads large images only when needed
 - 🧹 **Memory Safe** – Proper cleanup with `destroy()` method
 - ✅ **Well Tested** – 95%+ unit test coverage, cross-browser e2e tests
-- 📘 **TypeScript** – Written in TypeScript with full type definitions
+- 📘 **TypeScript** – Written in TypeScript with strict mode and full type definitions
+- 🔒 **Type Safe** – Strict TypeScript compilation for maximum reliability
 
 ---
 
@@ -83,14 +84,14 @@ Include the stylesheet in your `<head>`:
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/hoverzoom-js@2.0.0/dist/hoverzoom.min.css"
+  href="https://unpkg.com/hoverzoom-js@2.2.0/dist/hoverzoom.min.css"
 />
 ```
 
 Include the script before closing `<body>`:
 
 ```html
-<script src="https://unpkg.com/hoverzoom-js@2.0.0/dist/hoverzoom.umd.min.js"></script>
+<script src="https://unpkg.com/hoverzoom-js@2.2.0/dist/hoverzoom.umd.min.js"></script>
 ```
 
 **HTML Structure:**
