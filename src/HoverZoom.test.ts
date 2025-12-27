@@ -3,10 +3,10 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import HoverZoom from '../src/HoverZoom.ts';
+import HoverZoom from './HoverZoom';
 
 describe('HoverZoom', () => {
-  let container;
+  let container: HTMLDivElement;
 
   beforeEach(() => {
     document.body.innerHTML = '';
@@ -42,8 +42,8 @@ describe('HoverZoom', () => {
 
     test('should merge custom options with defaults', () => {
       const customOptions = {
-        position: 'bottom',
-        type: 'inside',
+        position: 'bottom' as const,
+        type: 'inside' as const,
         blur: true,
         grayscale: true,
       };
@@ -73,7 +73,9 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom();
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
       expect(image.id).toBe('hoverzoom-image-0');
     });
 
@@ -111,7 +113,7 @@ describe('HoverZoom', () => {
 
       const zoomedElement = document.querySelector('.hoverzoom-zoom');
       expect(zoomedElement).toBeTruthy();
-      expect(zoomedElement.id).toBe('hoverzoom-zoom-0');
+      expect(zoomedElement!.id).toBe('hoverzoom-zoom-0');
     });
 
     test('should create magnifier element', () => {
@@ -120,7 +122,7 @@ describe('HoverZoom', () => {
 
       const magnifier = document.querySelector('.hoverzoom-magnifier');
       expect(magnifier).toBeTruthy();
-      expect(magnifier.id).toBe('hoverzoom-magnifier-0');
+      expect(magnifier!.id).toBe('hoverzoom-magnifier-0');
     });
 
     test('should create magnifier image element', () => {
@@ -131,37 +133,43 @@ describe('HoverZoom', () => {
         '.hoverzoom-magnifier--image'
       );
       expect(magnifierImage).toBeTruthy();
-      expect(magnifierImage.tagName).toBe('IMG');
+      expect(magnifierImage!.tagName).toBe('IMG');
     });
 
     test('should set correct background image', () => {
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
-      const zoomedElement = document.querySelector('.hoverzoom-zoom');
+      const zoomedElement = document.querySelector(
+        '.hoverzoom-zoom'
+      ) as HTMLElement;
       const bgImage = zoomedElement.style.backgroundImage;
       expect(bgImage).toContain('test-image-large.jpg');
     });
 
     test('should apply correct flex direction for right position', () => {
-      const img = document.querySelector('.hoverzoom-image');
+      const img = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
       img.dataset.position = 'right';
 
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
-      const container = document.querySelector('.hoverzoom');
+      const container = document.querySelector('.hoverzoom') as HTMLElement;
       expect(container.style.flexDirection).toBe('row');
     });
 
     test('should apply correct flex direction for bottom position', () => {
-      const img = document.querySelector('.hoverzoom-image');
+      const img = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
       img.dataset.position = 'bottom';
 
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
-      const container = document.querySelector('.hoverzoom');
+      const container = document.querySelector('.hoverzoom') as HTMLElement;
       expect(container.style.flexDirection).toBe('column');
     });
   });
@@ -173,7 +181,7 @@ describe('HoverZoom', () => {
 
       const magnifier = document.querySelector('.hoverzoom-magnifier');
       expect(magnifier).toBeTruthy();
-      expect(magnifier.classList.contains('hoverzoom-magnifier--round')).toBe(
+      expect(magnifier!.classList.contains('hoverzoom-magnifier--round')).toBe(
         true
       );
     });
@@ -186,7 +194,7 @@ describe('HoverZoom', () => {
         '.hoverzoom-magnifier--image'
       );
       expect(magnifierImage).toBeTruthy();
-      expect(magnifierImage.tagName).toBe('DIV');
+      expect(magnifierImage!.tagName).toBe('DIV');
     });
 
     test('should set background image for inside magnifier', () => {
@@ -195,7 +203,7 @@ describe('HoverZoom', () => {
 
       const magnifierImage = document.querySelector(
         '.hoverzoom-magnifier--image'
-      );
+      ) as HTMLElement;
       const bgImage = magnifierImage.style.backgroundImage;
       expect(bgImage).toContain('test-image-large.jpg');
     });
@@ -206,7 +214,7 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       const event = new MouseEvent('mousemove', {
         bubbles: true,
         cancelable: true,
@@ -224,8 +232,10 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'outside', throttleDelay: 0 });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
-      const magnifier = document.querySelector('.hoverzoom-magnifier');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
+      const magnifier = document.querySelector(
+        '.hoverzoom-magnifier'
+      ) as HTMLElement;
 
       const event = new MouseEvent('mousemove', {
         bubbles: true,
@@ -250,7 +260,7 @@ describe('HoverZoom', () => {
       });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       const event = new MouseEvent('mousemove', {
         bubbles: true,
         cancelable: true,
@@ -274,7 +284,7 @@ describe('HoverZoom', () => {
       });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       const event = new MouseEvent('mousemove', {
         bubbles: true,
         cancelable: true,
@@ -294,8 +304,10 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
-      const magnifier = document.querySelector('.hoverzoom-magnifier');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
+      const magnifier = document.querySelector(
+        '.hoverzoom-magnifier'
+      ) as HTMLElement;
 
       const mouseoutEvent = new MouseEvent('mouseout', {
         bubbles: true,
@@ -309,7 +321,9 @@ describe('HoverZoom', () => {
     });
 
     test('should respect data-blur attribute over options', (done) => {
-      const img = document.querySelector('.hoverzoom-image');
+      const img = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
       img.dataset.blur = 'true';
 
       const hoverZoom = new HoverZoom({
@@ -319,7 +333,7 @@ describe('HoverZoom', () => {
       });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       const event = new MouseEvent('mousemove', {
         bubbles: true,
         cancelable: true,
@@ -336,7 +350,9 @@ describe('HoverZoom', () => {
     });
 
     test('should respect data-grayscale attribute over options', (done) => {
-      const img = document.querySelector('.hoverzoom-image');
+      const img = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
       img.dataset.grayscale = 'true';
 
       const hoverZoom = new HoverZoom({
@@ -346,7 +362,7 @@ describe('HoverZoom', () => {
       });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       const event = new MouseEvent('mousemove', {
         bubbles: true,
         cancelable: true,
@@ -368,32 +384,40 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
-      const zoomedElement = document.querySelector('.hoverzoom-zoom');
+      const zoomedElement = document.querySelector(
+        '.hoverzoom-zoom'
+      ) as HTMLElement;
       expect(zoomedElement.style.backgroundImage).toContain(
         'test-image-large.jpg'
       );
     });
 
     test('should fallback to src if data-large-image not provided', () => {
-      const img = document.querySelector('.hoverzoom-image');
+      const img = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
       delete img.dataset.largeImage;
 
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
-      const zoomedElement = document.querySelector('.hoverzoom-zoom');
+      const zoomedElement = document.querySelector(
+        '.hoverzoom-zoom'
+      ) as HTMLElement;
       expect(zoomedElement.style.backgroundImage).toContain('test-image.jpg');
     });
 
     test('should respect data-type attribute', () => {
-      const img = document.querySelector('.hoverzoom-image');
+      const img = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
       img.dataset.type = 'inside';
 
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
       const magnifier = document.querySelector('.hoverzoom-magnifier');
-      expect(magnifier.classList.contains('hoverzoom-magnifier--round')).toBe(
+      expect(magnifier!.classList.contains('hoverzoom-magnifier--round')).toBe(
         true
       );
     });
@@ -413,9 +437,9 @@ describe('HoverZoom', () => {
       hoverZoom.init();
 
       const magnifier = document.querySelector('.hoverzoom-magnifier');
-      magnifier.remove();
+      magnifier!.remove();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       const event = new MouseEvent('mousemove', {
         bubbles: true,
         cancelable: true,
@@ -430,7 +454,7 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'outside' });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       const event = new MouseEvent('mousemove', {
         bubbles: true,
         cancelable: true,
@@ -473,10 +497,12 @@ describe('HoverZoom', () => {
     test('should handle image preload errors gracefully', () => {
       const hoverZoom = new HoverZoom();
       const consoleWarn = console.warn;
-      const warnings = [];
-      console.warn = (...args) => warnings.push(args);
+      const warnings: any[] = [];
+      console.warn = (...args: any[]) => warnings.push(args);
 
-      const img = document.querySelector('.hoverzoom-image');
+      const img = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
       img.dataset.largeImage = 'invalid-image.jpg';
 
       hoverZoom.init();
@@ -489,14 +515,14 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'outside', throttleDelay: 50 });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       let callCount = 0;
 
       // Override to count calls
       const originalSetProperty = image.style.setProperty;
-      image.style.setProperty = function (...args) {
+      image.style.setProperty = function (...args: any[]) {
         if (args[0] === 'filter') callCount++;
-        return originalSetProperty.apply(this, args);
+        return originalSetProperty.apply(this, args as [string, string]);
       };
 
       // Dispatch multiple events quickly
@@ -521,8 +547,10 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'outside', throttleDelay: 0 });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
-      const magnifier = document.querySelector('.hoverzoom-magnifier');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
+      const magnifier = document.querySelector(
+        '.hoverzoom-magnifier'
+      ) as HTMLElement;
 
       const event = new MouseEvent('mousemove', {
         bubbles: true,
@@ -567,7 +595,7 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'outside', throttleDelay: 0 });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
 
       // Trigger mousemove to set rafId
       const moveEvent = new MouseEvent('mousemove', {
@@ -594,10 +622,10 @@ describe('HoverZoom', () => {
       const hoverZoom = new HoverZoom({ type: 'inside', throttleDelay: 0 });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
       const magnifierImage = document.querySelector(
         '.hoverzoom-magnifier--image'
-      );
+      ) as HTMLElement;
 
       const event = new MouseEvent('mousemove', {
         bubbles: true,
@@ -623,7 +651,7 @@ describe('HoverZoom', () => {
       });
       hoverZoom.init();
 
-      const image = document.querySelector('.hoverzoom-image');
+      const image = document.querySelector('.hoverzoom-image') as HTMLElement;
 
       const event = new MouseEvent('mousemove', {
         bubbles: true,

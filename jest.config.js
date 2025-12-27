@@ -10,7 +10,7 @@ export default {
   },
   collectCoverageFrom: [
     "src/**/*.{js,ts}",
-    "!src/**/*.test.js",
+    "!src/**/*.test.{js,ts}",
     "!src/**/*.d.ts",
     "!**/node_modules/**",
   ],
@@ -23,7 +23,7 @@ export default {
     },
   },
   coverageReporters: ["text", "lcov", "html"],
-  testMatch: ["**/__tests__/**/*.js", "**/?(*.)+(spec|test).js"],
+  testMatch: ["**/__tests__/**/*.{js,ts}", "**/?(*.)+(spec|test).{js,ts}"],
   testPathIgnorePatterns: ["/node_modules/", "/e2e/"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
 };

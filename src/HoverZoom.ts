@@ -17,8 +17,8 @@ interface HoverZoomClassNames {
 
 interface HoverZoomOptions {
   classNames?: Partial<HoverZoomClassNames>;
-  position?: "right" | "column" | string;
-  type?: "outside" | "inside" | string;
+  position?: 'right' | 'column' | string;
+  type?: 'outside' | 'inside' | string;
   largeImage?: string;
   blur?: boolean;
   grayscale?: boolean;
@@ -41,16 +41,16 @@ class HoverZoom {
   constructor(options: HoverZoomOptions = {}) {
     const defaults: Required<HoverZoomOptions> = {
       classNames: {
-        container: "hoverzoom",
-        image: "hoverzoom-image",
-        zoomedImage: "hoverzoom-zoom",
-        magnifier: "hoverzoom-magnifier",
-        magnifierRound: "hoverzoom-magnifier--round",
-        magnifierImage: "hoverzoom-magnifier--image",
+        container: 'hoverzoom',
+        image: 'hoverzoom-image',
+        zoomedImage: 'hoverzoom-zoom',
+        magnifier: 'hoverzoom-magnifier',
+        magnifierRound: 'hoverzoom-magnifier--round',
+        magnifierImage: 'hoverzoom-magnifier--image',
       },
-      position: "right",
-      type: "outside",
-      largeImage: "",
+      position: 'right',
+      type: 'outside',
+      largeImage: '',
       blur: false,
       grayscale: false,
       throttleDelay: 16,
@@ -130,7 +130,7 @@ class HoverZoom {
     if (!imageEl) return;
 
     this.currentImageEl = imageEl;
-    this.currentImageEl.setAttribute("id", `${image}-${this.iteration}`);
+    this.currentImageEl.setAttribute('id', `${image}-${this.iteration}`);
 
     // Cache current image element
     this.cacheElement(`image-${this.iteration}`, this.currentImageEl);
@@ -141,11 +141,11 @@ class HoverZoom {
 
     // Preload large image for better performance
     this.preloadImage(this.options.largeImage).catch(() => {
-      console.warn("Failed to preload image:", this.options.largeImage);
+      console.warn('Failed to preload image:', this.options.largeImage);
     });
 
     const type = this.currentImageEl.dataset.type || this.options.type;
-    if (type === "outside") {
+    if (type === 'outside') {
       this.outsideZoom();
     } else {
       this.insideZoom();
@@ -155,11 +155,11 @@ class HoverZoom {
 
   private outsideZoom(): void {
     const { zoomedImage, magnifier, magnifierImage } = this.options.classNames;
-    this.zoomedElement = document.createElement("DIV") as HTMLDivElement;
+    this.zoomedElement = document.createElement('DIV') as HTMLDivElement;
     this.zoomedElement.classList.add(zoomedImage!);
-    this.zoomedElement.setAttribute("id", `${zoomedImage}-${this.iteration}`);
+    this.zoomedElement.setAttribute('id', `${zoomedImage}-${this.iteration}`);
     this.zoomedElement.style.setProperty(
-      "background-image",
+      'background-image',
       `url('${this.options.largeImage}')`
     );
 
@@ -168,33 +168,33 @@ class HoverZoom {
     const imgHeight = this.currentImageEl.offsetHeight;
 
     this.zoomedElement.style.setProperty(
-      "background-size",
+      'background-size',
       `${imgWidth * 4}px ${imgHeight * 4}px`
     );
 
     const position =
       this.currentImageEl.dataset.position || this.options.position;
     (this.currentContainer as HTMLElement).style.setProperty(
-      "flex-direction",
-      position === "right" ? "row" : "column"
+      'flex-direction',
+      position === 'right' ? 'row' : 'column'
     );
     this.attachZoomedImage();
 
-    this.magnifierElement = document.createElement("DIV") as HTMLDivElement;
+    this.magnifierElement = document.createElement('DIV') as HTMLDivElement;
     this.magnifierElement.classList.add(magnifier!);
-    this.magnifierElement.setAttribute("id", `${magnifier}-${this.iteration}`);
+    this.magnifierElement.setAttribute('id', `${magnifier}-${this.iteration}`);
 
     this.magnifierImageElement = document.createElement(
-      "IMG"
+      'IMG'
     ) as HTMLImageElement;
     this.magnifierImageElement.classList.add(magnifierImage!);
     this.magnifierImageElement.setAttribute(
-      "id",
+      'id',
       `${magnifierImage}-${this.iteration}`
     );
-    this.magnifierImageElement.setAttribute("src", this.options.largeImage);
-    this.magnifierImageElement.style.setProperty("height", `${imgHeight}px`);
-    this.magnifierImageElement.style.setProperty("width", `${imgWidth}px`);
+    this.magnifierImageElement.setAttribute('src', this.options.largeImage);
+    this.magnifierImageElement.style.setProperty('height', `${imgHeight}px`);
+    this.magnifierImageElement.style.setProperty('width', `${imgWidth}px`);
     this.magnifierElement.appendChild(this.magnifierImageElement);
 
     this.currentContainer.appendChild(this.magnifierElement);
@@ -209,25 +209,25 @@ class HoverZoom {
 
     const magnifierWidth =
       (this.magnifierElement.offsetHeight * imgWidth) / imgHeight;
-    this.magnifierElement.style.setProperty("width", `${magnifierWidth}px`);
+    this.magnifierElement.style.setProperty('width', `${magnifierWidth}px`);
   }
 
   private attachZoomedImage(): void {
     this.zoomedElement.style.setProperty(
-      "height",
+      'height',
       `${this.currentImageEl.offsetHeight}px`
     );
     this.zoomedElement.style.setProperty(
-      "width",
+      'width',
       `${this.currentImageEl.offsetWidth}px`
     );
 
     const position =
       this.currentImageEl.dataset.position || this.options.position;
-    if (position === "right") {
-      this.zoomedElement.style.setProperty("margin-left", "6px");
+    if (position === 'right') {
+      this.zoomedElement.style.setProperty('margin-left', '6px');
     } else {
-      this.zoomedElement.style.setProperty("margin-top", "6px");
+      this.zoomedElement.style.setProperty('margin-top', '6px');
     }
     this.currentContainer.appendChild(this.zoomedElement);
   }
@@ -235,21 +235,21 @@ class HoverZoom {
   private insideZoom(): void {
     const { magnifier, magnifierImage, magnifierRound } =
       this.options.classNames;
-    this.magnifierElement = document.createElement("DIV") as HTMLDivElement;
+    this.magnifierElement = document.createElement('DIV') as HTMLDivElement;
     this.magnifierElement.classList.add(magnifier!);
     this.magnifierElement.classList.add(magnifierRound!);
-    this.magnifierElement.setAttribute("id", `${magnifier}-${this.iteration}`);
+    this.magnifierElement.setAttribute('id', `${magnifier}-${this.iteration}`);
 
     this.magnifierImageElement = document.createElement(
-      "DIV"
+      'DIV'
     ) as HTMLDivElement;
     this.magnifierImageElement.classList.add(magnifierImage!);
     this.magnifierImageElement.setAttribute(
-      "id",
+      'id',
       `${magnifierImage}-${this.iteration}`
     );
     this.magnifierImageElement.style.setProperty(
-      "background-image",
+      'background-image',
       `url('${this.options.largeImage}')`
     );
 
@@ -258,11 +258,11 @@ class HoverZoom {
     const imgHeight = this.currentImageEl.offsetHeight;
 
     this.magnifierImageElement.style.setProperty(
-      "background-size",
+      'background-size',
       `${imgWidth * 4}px ${imgHeight * 4}px`
     );
-    this.magnifierImageElement.style.setProperty("height", `${imgHeight}px`);
-    this.magnifierImageElement.style.setProperty("width", `${imgWidth}px`);
+    this.magnifierImageElement.style.setProperty('height', `${imgHeight}px`);
+    this.magnifierImageElement.style.setProperty('width', `${imgWidth}px`);
     this.magnifierElement.appendChild(this.magnifierImageElement);
 
     this.currentContainer.appendChild(this.magnifierElement);
@@ -304,16 +304,16 @@ class HoverZoom {
     const bgPosYMultiplier = 3;
     const magnifierTransformX = offsetWidth * 0.5;
     const magnifierTransformY =
-      type === "outside" ? offsetHeight * -0.52 : -(offsetHeight * 0.51);
+      type === 'outside' ? offsetHeight * -0.52 : -(offsetHeight * 0.51);
     const magnifierOffsetX = offsetWidth / 2 - 1;
     const magnifierOffsetY = offsetHeight / 2;
 
     // Build filter string once
-    let filter = "opacity(0.8)";
+    let filter = 'opacity(0.8)';
     if (currentImageEl.dataset.blur || this.options.blur)
-      filter += " blur(2px)";
+      filter += ' blur(2px)';
     if (currentImageEl.dataset.grayscale || this.options.grayscale)
-      filter += " grayscale(100%)";
+      filter += ' grayscale(100%)';
 
     // Throttled mousemove handler with requestAnimationFrame
     const handleMouseMove = this.throttle((event: MouseEvent) => {
@@ -326,11 +326,11 @@ class HoverZoom {
       this.rafId = requestAnimationFrame(() => {
         if (!currentImageEl || !magnifierElement) return;
         // Apply filter on first move
-        currentImageEl.style.setProperty("filter", filter);
+        currentImageEl.style.setProperty('filter', filter);
 
-        magnifierElement.style.setProperty("opacity", "1");
-        if (type === "outside" && zoomedElement)
-          zoomedElement.style.setProperty("opacity", "1");
+        magnifierElement.style.setProperty('opacity', '1');
+        if (type === 'outside' && zoomedElement)
+          zoomedElement.style.setProperty('opacity', '1');
 
         const posX = event.offsetX
           ? event.offsetX
@@ -340,30 +340,30 @@ class HoverZoom {
           : event.pageY - currentImageEl.offsetTop;
 
         // Update background positions
-        if (type === "outside" && zoomedElement) {
+        if (type === 'outside' && zoomedElement) {
           zoomedElement.style.setProperty(
-            "background-position",
+            'background-position',
             `${-posX * bgPosXMultiplier}px ${-posY * bgPosYMultiplier}px`
           );
         }
 
-        if (type !== "outside" && magnifierImageElement) {
+        if (type !== 'outside' && magnifierImageElement) {
           magnifierImageElement.style.setProperty(
-            "background-position",
+            'background-position',
             `${-posX * bgPosXMultiplier}px ${-posY * bgPosYMultiplier}px`
           );
         }
 
         // Update transforms using translate3d for GPU acceleration
         magnifierElement.style.setProperty(
-          "transform",
+          'transform',
           `translate3d(${event.offsetX - magnifierTransformX}px, ${
             event.offsetY + magnifierTransformY
           }px, 0)`
         );
         if (magnifierImageElement) {
           magnifierImageElement.style.setProperty(
-            "transform",
+            'transform',
             `translate3d(${-event.offsetX + magnifierOffsetX}px, ${
               -event.offsetY + magnifierOffsetY
             }px, 0)`
@@ -373,11 +373,11 @@ class HoverZoom {
     }, this.options.throttleDelay);
 
     this.currentImageEl.addEventListener(
-      "mousemove",
+      'mousemove',
       handleMouseMove as EventListener
     );
 
-    this.currentImageEl.addEventListener("mouseout", () => {
+    this.currentImageEl.addEventListener('mouseout', () => {
       // Cancel any pending animation frame
       if (this.rafId) {
         cancelAnimationFrame(this.rafId);
@@ -386,10 +386,10 @@ class HoverZoom {
 
       if (!currentImageEl || !magnifierElement) return;
 
-      currentImageEl.style.setProperty("filter", "unset");
-      magnifierElement.style.setProperty("opacity", "0");
-      if (type === "outside" && zoomedElement)
-        zoomedElement.style.setProperty("opacity", "0");
+      currentImageEl.style.setProperty('filter', 'unset');
+      magnifierElement.style.setProperty('opacity', '0');
+      if (type === 'outside' && zoomedElement)
+        zoomedElement.style.setProperty('opacity', '0');
     });
   }
 

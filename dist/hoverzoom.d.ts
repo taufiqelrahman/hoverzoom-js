@@ -8,8 +8,8 @@ interface HoverZoomClassNames {
 }
 interface HoverZoomOptions {
     classNames?: Partial<HoverZoomClassNames>;
-    position?: "right" | "column" | string;
-    type?: "outside" | "inside" | string;
+    position?: 'right' | 'column' | string;
+    type?: 'outside' | 'inside' | string;
     largeImage?: string;
     blur?: boolean;
     grayscale?: boolean;
