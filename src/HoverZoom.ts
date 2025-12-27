@@ -27,10 +27,10 @@ interface HoverZoomOptions {
 
 class HoverZoom {
   public options: Required<HoverZoomOptions>;
-  private domCache: Map<string, HTMLElement>;
-  private rafId: number | null;
+  public domCache: Map<string, HTMLElement>;
+  public rafId: number | null;
   private lastCall: number;
-  private imageCache: Map<string, HTMLImageElement>;
+  public imageCache: Map<string, HTMLImageElement>;
   private iteration: number = 0;
   private currentContainer!: Element;
   private currentImageEl!: HTMLImageElement;
@@ -94,7 +94,7 @@ class HoverZoom {
   }
 
   // Preload image with lazy loading
-  private preloadImage(src: string): Promise<HTMLImageElement> {
+  public preloadImage(src: string): Promise<HTMLImageElement> {
     if (this.imageCache.has(src)) {
       const cached = this.imageCache.get(src);
       if (cached) return Promise.resolve(cached);

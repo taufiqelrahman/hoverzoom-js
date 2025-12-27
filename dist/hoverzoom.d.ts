@@ -17,10 +17,10 @@ interface HoverZoomOptions {
 }
 declare class HoverZoom {
     options: Required<HoverZoomOptions>;
-    private domCache;
-    private rafId;
+    domCache: Map<string, HTMLElement>;
+    rafId: number | null;
     private lastCall;
-    private imageCache;
+    imageCache: Map<string, HTMLImageElement>;
     private iteration;
     private currentContainer;
     private currentImageEl;
@@ -30,7 +30,7 @@ declare class HoverZoom {
     constructor(options?: HoverZoomOptions);
     private throttle;
     private cacheElement;
-    private preloadImage;
+    preloadImage(src: string): Promise<HTMLImageElement>;
     init(): void;
     private applyHoverZoom;
     private outsideZoom;
