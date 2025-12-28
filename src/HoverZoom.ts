@@ -132,6 +132,14 @@ class HoverZoom {
     this.currentImageEl = imageEl;
     this.currentImageEl.setAttribute('id', `${image}-${this.iteration}`);
 
+    // Add ARIA attributes for accessibility
+    this.currentImageEl.setAttribute('role', 'img');
+    this.currentImageEl.setAttribute(
+      'aria-label',
+      `Zoomable image ${this.iteration + 1}`
+    );
+    this.currentImageEl.setAttribute('tabindex', '0');
+
     // Cache current image element
     this.cacheElement(`image-${this.iteration}`, this.currentImageEl);
 
@@ -158,6 +166,9 @@ class HoverZoom {
     this.zoomedElement = document.createElement('DIV') as HTMLDivElement;
     this.zoomedElement.classList.add(zoomedImage!);
     this.zoomedElement.setAttribute('id', `${zoomedImage}-${this.iteration}`);
+    this.zoomedElement.setAttribute('role', 'region');
+    this.zoomedElement.setAttribute('aria-label', 'Zoomed image preview');
+    this.zoomedElement.setAttribute('aria-live', 'polite');
     this.zoomedElement.style.setProperty(
       'background-image',
       `url('${this.options.largeImage}')`
@@ -183,6 +194,9 @@ class HoverZoom {
     this.magnifierElement = document.createElement('DIV') as HTMLDivElement;
     this.magnifierElement.classList.add(magnifier!);
     this.magnifierElement.setAttribute('id', `${magnifier}-${this.iteration}`);
+    this.magnifierElement.setAttribute('role', 'tooltip');
+    this.magnifierElement.setAttribute('aria-label', 'Magnifying glass lens');
+    this.magnifierElement.setAttribute('aria-hidden', 'true');
 
     this.magnifierImageElement = document.createElement(
       'IMG'
@@ -193,6 +207,8 @@ class HoverZoom {
       `${magnifierImage}-${this.iteration}`
     );
     this.magnifierImageElement.setAttribute('src', this.options.largeImage);
+    this.magnifierImageElement.setAttribute('alt', 'Magnified view');
+    this.magnifierImageElement.setAttribute('role', 'presentation');
     this.magnifierImageElement.style.setProperty('height', `${imgHeight}px`);
     this.magnifierImageElement.style.setProperty('width', `${imgWidth}px`);
     this.magnifierElement.appendChild(this.magnifierImageElement);
@@ -239,6 +255,9 @@ class HoverZoom {
     this.magnifierElement.classList.add(magnifier!);
     this.magnifierElement.classList.add(magnifierRound!);
     this.magnifierElement.setAttribute('id', `${magnifier}-${this.iteration}`);
+    this.magnifierElement.setAttribute('role', 'tooltip');
+    this.magnifierElement.setAttribute('aria-label', 'Magnifying glass lens');
+    this.magnifierElement.setAttribute('aria-hidden', 'true');
 
     this.magnifierImageElement = document.createElement(
       'DIV'

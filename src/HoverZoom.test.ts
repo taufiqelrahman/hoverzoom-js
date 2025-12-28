@@ -681,4 +681,71 @@ describe('HoverZoom', () => {
       expect(hoverZoom.options.throttleDelay).toBe(16);
     });
   });
+
+  describe('Accessibility (ARIA attributes)', () => {
+    test('should add ARIA attributes to image element', () => {
+      const hoverZoom = new HoverZoom({ type: 'outside' });
+      hoverZoom.init();
+
+      const image = document.querySelector(
+        '.hoverzoom-image'
+      ) as HTMLImageElement;
+      expect(image.getAttribute('role')).toBe('img');
+      expect(image.getAttribute('aria-label')).toContain('Zoomable image');
+      expect(image.getAttribute('tabindex')).toBe('0');
+    });
+
+    test('should add ARIA attributes to zoomed element for outside type', () => {
+      const hoverZoom = new HoverZoom({ type: 'outside' });
+      hoverZoom.init();
+
+      const zoomedElement = document.querySelector(
+        '.hoverzoom-zoom'
+      ) as HTMLElement;
+      expect(zoomedElement.getAttribute('role')).toBe('region');
+      expect(zoomedElement.getAttribute('aria-label')).toBe(
+        'Zoomed image preview'
+      );
+      expect(zoomedElement.getAttribute('aria-live')).toBe('polite');
+    });
+
+    test('should add ARIA attributes to magnifier element for outside type', () => {
+      const hoverZoom = new HoverZoom({ type: 'outside' });
+      hoverZoom.init();
+
+      const magnifier = document.querySelector(
+        '.hoverzoom-magnifier'
+      ) as HTMLElement;
+      expect(magnifier.getAttribute('role')).toBe('tooltip');
+      expect(magnifier.getAttribute('aria-label')).toBe(
+        'Magnifying glass lens'
+      );
+      expect(magnifier.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    test('should add ARIA attributes to magnifier element for inside type', () => {
+      const hoverZoom = new HoverZoom({ type: 'inside' });
+      hoverZoom.init();
+
+      const magnifier = document.querySelector(
+        '.hoverzoom-magnifier'
+      ) as HTMLElement;
+      expect(magnifier.getAttribute('role')).toBe('tooltip');
+      expect(magnifier.getAttribute('aria-label')).toBe(
+        'Magnifying glass lens'
+      );
+      expect(magnifier.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    test('should add alt and role attributes to magnifier image for outside type', () => {
+      const hoverZoom = new HoverZoom({ type: 'outside' });
+      hoverZoom.init();
+
+      const magnifierImage = document.querySelector(
+        '.hoverzoom-magnifier--image'
+      ) as HTMLImageElement;
+      expect(magnifierImage.getAttribute('alt')).toBe('Magnified view');
+      expect(magnifierImage.getAttribute('role')).toBe('presentation');
+    });
+  });
 });
