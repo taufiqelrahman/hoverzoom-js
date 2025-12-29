@@ -37,6 +37,7 @@ declare class HoverZoom {
     private attachZoomedImage;
     private insideZoom;
     private addMouseListener;
+    private addKeyboardListener;
     destroy(): void;
 }
 export default HoverZoom;

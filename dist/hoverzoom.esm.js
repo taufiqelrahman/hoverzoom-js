@@ -108,6 +108,7 @@ class HoverZoom {
             this.insideZoom();
         }
         this.addMouseListener();
+        this.addKeyboardListener();
     }
     outsideZoom() {
         const { zoomedImage, magnifier, magnifierImage } = this.options.classNames;
@@ -262,6 +263,91 @@ class HoverZoom {
             magnifierElement.style.setProperty('opacity', '0');
             if (type === 'outside' && zoomedElement)
                 zoomedElement.style.setProperty('opacity', '0');
+        });
+    }
+    addKeyboardListener() {
+        const { image, magnifier, zoomedImage } = this.options.classNames;
+        const currentImageEl = this.domCache.get(`image-${this.iteration}`) ||
+            document.getElementById(`${image}-${this.iteration}`);
+        const magnifierElement = this.domCache.get(`magnifier-${this.iteration}`) ||
+            document.getElementById(`${magnifier}-${this.iteration}`);
+        const zoomedElement = this.domCache.get(`zoomed-${this.iteration}`) ||
+            document.getElementById(`${zoomedImage}-${this.iteration}`);
+        if (!currentImageEl || !magnifierElement)
+            return;
+        const type = currentImageEl.dataset.type || this.options.type;
+        let isZoomActive = false;
+        // Build filter string once
+        let filter = 'opacity(0.8)';
+        if (currentImageEl.dataset.blur || this.options.blur)
+            filter += ' blur(2px)';
+        if (currentImageEl.dataset.grayscale || this.options.grayscale)
+            filter += ' grayscale(100%)';
+        // Handle Enter key to toggle zoom
+        currentImageEl.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                isZoomActive = !isZoomActive;
+                if (isZoomActive) {
+                    // Activate zoom at center of image
+                    currentImageEl.style.setProperty('filter', filter);
+                    magnifierElement.style.setProperty('opacity', '1');
+                    if (type === 'outside' && zoomedElement) {
+                        zoomedElement.style.setProperty('opacity', '1');
+                    }
+                    // Position magnifier at center
+                    const imgRect = currentImageEl.getBoundingClientRect();
+                    const centerX = imgRect.width / 2;
+                    const centerY = imgRect.height / 2;
+                    // Trigger a synthetic mouse move at center
+                    const syntheticEvent = new MouseEvent('mousemove', {
+                        bubbles: true,
+                        cancelable: true,
+                    });
+                    Object.defineProperty(syntheticEvent, 'offsetX', {
+                        value: centerX,
+                    });
+                    Object.defineProperty(syntheticEvent, 'offsetY', {
+                        value: centerY,
+                    });
+                    currentImageEl.dispatchEvent(syntheticEvent);
+                }
+                else {
+                    // Deactivate zoom
+                    currentImageEl.style.setProperty('filter', 'unset');
+                    magnifierElement.style.setProperty('opacity', '0');
+                    if (type === 'outside' && zoomedElement) {
+                        zoomedElement.style.setProperty('opacity', '0');
+                    }
+                }
+            }
+            else if (event.key === 'Escape') {
+                // Always deactivate zoom on Escape
+                event.preventDefault();
+                isZoomActive = false;
+                currentImageEl.style.setProperty('filter', 'unset');
+                magnifierElement.style.setProperty('opacity', '0');
+                if (type === 'outside' && zoomedElement) {
+                    zoomedElement.style.setProperty('opacity', '0');
+                }
+            }
+        });
+        // Add focus visible state
+        currentImageEl.addEventListener('focus', () => {
+            currentImageEl.style.setProperty('outline', '2px solid #4A90E2');
+            currentImageEl.style.setProperty('outline-offset', '2px');
+        });
+        currentImageEl.addEventListener('blur', () => {
+            currentImageEl.style.setProperty('outline', 'none');
+            // Reset zoom on blur
+            if (isZoomActive) {
+                isZoomActive = false;
+                currentImageEl.style.setProperty('filter', 'unset');
+                magnifierElement.style.setProperty('opacity', '0');
+                if (type === 'outside' && zoomedElement) {
+                    zoomedElement.style.setProperty('opacity', '0');
+                }
+            }
         });
     }
     // Clean up method for proper memory management
