@@ -16,7 +16,7 @@ No dependencies, no jQuery, fully optimized for minimal download size and fast p
 
 ## Features
 
-- 🚀 **Lightweight** – Only 6.7kB minified (ESM) / 6.9kB (UMD)
+- 🚀 **Lightweight** – Only 9.2kB minified (ESM) / 9.4kB (UMD)
 - ⚡ **High Performance** – Throttled mousemove (60fps), requestAnimationFrame, GPU acceleration
 - 📦 **Zero Dependencies** – Pure vanilla JavaScript, no jQuery or other libraries
 - 🎯 **Easy Integration** – Works with CDN, npm, or any module bundler
@@ -25,6 +25,9 @@ No dependencies, no jQuery, fully optimized for minimal download size and fast p
 - 💾 **Smart Caching** – DOM element and image caching for optimal performance
 - 🖼️ **Lazy Loading** – Preloads large images only when needed
 - 🧹 **Memory Safe** – Proper cleanup with `destroy()` method
+- ♿ **Fully Accessible** – WCAG 2.1 AA compliant with keyboard navigation and screen reader support
+- ⌨️ **Keyboard Friendly** – Tab, Enter/Space, and Escape key support
+- 📢 **Screen Reader Optimized** – Proper ARIA labels and live regions
 - ✅ **Well Tested** – 95%+ unit test coverage, cross-browser e2e tests
 - 📘 **TypeScript** – Written in TypeScript with strict mode and full type definitions
 - 🔒 **Type Safe** – Strict TypeScript compilation for maximum reliability
@@ -129,8 +132,8 @@ Include the script before closing `<body>`:
 
   // Or with custom options
   const hoverZoom = new HoverZoom({
-    position: "right", // 'right' | 'bottom' (for outside type)
-    type: "outside", // 'outside' | 'inside'
+    position: 'right', // 'right' | 'bottom' (for outside type)
+    type: 'outside', // 'outside' | 'inside'
     blur: false, // apply blur filter on hover
     grayscale: false, // apply grayscale filter on hover
     throttleDelay: 16, // mousemove throttle (ms) - 16ms = ~60fps
@@ -163,12 +166,12 @@ yarn add hoverzoom-js
 
 ```typescript
 // ES Module (TypeScript or modern JS)
-import HoverZoom from "hoverzoom-js";
-import "hoverzoom-js/style.css";
+import HoverZoom from 'hoverzoom-js';
+import 'hoverzoom-js/style.css';
 
 const hoverZoom = new HoverZoom({
-  position: "right",
-  type: "outside",
+  position: 'right',
+  type: 'outside',
   blur: false,
   grayscale: false,
 });
@@ -183,9 +186,9 @@ hoverZoom.init();
 **React Example:**
 
 ```tsx
-import { useEffect } from "react";
-import HoverZoom from "hoverzoom-js";
-import "hoverzoom-js/style.css";
+import { useEffect } from 'react';
+import HoverZoom from 'hoverzoom-js';
+import 'hoverzoom-js/style.css';
 
 function ProductImage() {
   useEffect(() => {
@@ -214,9 +217,9 @@ function ProductImage() {
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from "vue";
-import HoverZoom from "hoverzoom-js";
-import "hoverzoom-js/style.css";
+import { onMounted, onUnmounted } from 'vue';
+import HoverZoom from 'hoverzoom-js';
+import 'hoverzoom-js/style.css';
 
 let hoverZoom;
 
@@ -346,6 +349,33 @@ pnpm run test:all
 ```
 
 See [TESTING.md](./TESTING.md) for detailed testing documentation.
+
+## ♿ Accessibility
+
+HoverZoom is built with accessibility in mind and supports:
+
+### Keyboard Navigation
+
+- **Tab** - Focus on zoomable images
+- **Enter / Space** - Toggle zoom on/off
+- **Escape** - Deactivate zoom
+- **Tab (while zoomed)** - Deactivate and move to next element
+
+### Screen Reader Support
+
+- Full ARIA attributes support
+- Descriptive labels for all interactive elements
+- Live region announcements for state changes
+- Proper semantic HTML structure
+- Tested with NVDA, JAWS, and VoiceOver
+
+### Standards Compliance
+
+- WCAG 2.1 Level AA compliant
+- Section 508 compliant
+- ARIA 1.2 specification
+
+See [SCREEN_READER_TESTING.md](./SCREEN_READER_TESTING.md) for detailed accessibility testing guide.
 
 ## 📦 Deployment
 
