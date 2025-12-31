@@ -87,14 +87,14 @@ Include the stylesheet in your `<head>`:
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/hoverzoom-js@2.2.0/dist/hoverzoom.min.css"
+  href="https://unpkg.com/hoverzoom-js@latest/dist/hoverzoom.min.css"
 />
 ```
 
 Include the script before closing `<body>`:
 
 ```html
-<script src="https://unpkg.com/hoverzoom-js@2.2.0/dist/hoverzoom.umd.min.js"></script>
+<script src="https://unpkg.com/hoverzoom-js@latest/dist/hoverzoom.umd.min.js"></script>
 ```
 
 **HTML Structure:**

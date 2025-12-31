@@ -47,7 +47,17 @@ pnpm run test:all
 
 ### Unit Tests
 
-- **Location:** `src/HoverZoom.test.js`
+- **Location:** `src/__tests__/` directory
+- **Test Files:**
+  - `HoverZoom.basic.test.ts` - Constructor, initialization, data attributes, edge cases
+  - `HoverZoom.zoom.test.ts` - Outside and inside zoom functionality
+  - `HoverZoom.mouse.test.ts` - Mouse event handling
+  - `HoverZoom.keyboard.test.ts` - Keyboard navigation
+  - `HoverZoom.accessibility.test.ts` - ARIA and screen reader support
+  - `HoverZoom.performance.test.ts` - Performance optimizations
+  - `test-utils.ts` - Shared test helpers and utilities
+- **Framework:** Jest 30.2.0 with jsdom environment
+- **Total Tests:** 62 unit tests
 - **Source:** `src/HoverZoom.ts` (TypeScript)
 - **Framework:** Jest with jsdom environment
 - **Coverage:**
@@ -104,20 +114,20 @@ Coverage reports are uploaded to Codecov for tracking.
 ### Unit Test Example
 
 ```javascript
-test("should create instance with default options", () => {
+test('should create instance with default options', () => {
   const hoverZoom = new HoverZoom();
-  expect(hoverZoom.options.position).toBe("right");
+  expect(hoverZoom.options.position).toBe('right');
 });
 ```
 
 ### E2E Test Example
 
 ```javascript
-test("should show magnifier on hover", async ({ page }) => {
-  const image = page.locator(".hoverzoom-image").first();
+test('should show magnifier on hover', async ({ page }) => {
+  const image = page.locator('.hoverzoom-image').first();
   await image.hover();
-  const magnifier = page.locator(".hoverzoom-magnifier").first();
-  await expect(magnifier).toHaveCSS("opacity", "1");
+  const magnifier = page.locator('.hoverzoom-magnifier').first();
+  await expect(magnifier).toHaveCSS('opacity', '1');
 });
 ```
 

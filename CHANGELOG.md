@@ -1,3 +1,41 @@
+## [2.3.0] - 2025-12-31
+
+### Added
+
+- **Full Accessibility Support** - WCAG 2.1 Level AA compliance
+- ARIA attributes for all interactive elements (role, aria-label, aria-live, aria-hidden)
+- Keyboard navigation with Tab, Enter, Space, and Escape keys
+- Focus indicators with visible outline (2px solid #4A90E2)
+- Screen reader support with descriptive labels and live regions
+- Comprehensive accessibility documentation (SCREEN_READER_TESTING.md, ACCESSIBILITY_SUMMARY.md)
+
+### Changed
+
+- **Test Suite Refactoring** - Split monolithic test file into organized modules
+- Reorganized 1120-line test file into 6 focused test files:
+  - `HoverZoom.basic.test.ts` - Constructor, initialization, data attributes, edge cases (17 tests)
+  - `HoverZoom.zoom.test.ts` - Outside and inside zoom functionality (9 tests)
+  - `HoverZoom.mouse.test.ts` - Mouse event handling (10 tests)
+  - `HoverZoom.keyboard.test.ts` - Keyboard navigation (8 tests)
+  - `HoverZoom.accessibility.test.ts` - ARIA and screen reader support (14 tests)
+  - `HoverZoom.performance.test.ts` - Performance optimizations (8 tests)
+- Created shared `test-utils.ts` for common test helpers
+- Updated Jest configuration to support `__tests__` directory structure
+- All 62 tests passing with 96.34% code coverage maintained
+
+### Fixed
+
+- **ESLint TypeScript Support** - Fixed linting issues with TypeScript files
+- Removed unused `container` variables from test files causing lint errors
+- Updated ESLint configuration to properly handle test file structure
+
+### Developer Experience
+
+- Improved test maintainability with logical file organization
+- Added `__tests__/README.md` documenting test structure
+- Better separation of concerns in test suite
+- Easier to navigate and extend individual test categories
+
 ## [2.2.0] - 2025-12-23
 
 ### Fixed
