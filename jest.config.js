@@ -28,6 +28,8 @@ export default {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/e2e/',
+    '/dist/',
+    '/.rollup.cache/',
     '/__tests__/test-utils.ts',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
